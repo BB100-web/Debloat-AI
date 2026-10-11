@@ -72,16 +72,14 @@
       background-color: #EBF3EE;
       box-shadow: 0 0 0 2px #4A7C59;
     }
-    /* Simple hide utility for tab switching */
-    .hide-meal { display: none; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-matcha-light selection:text-forest">
 
-  <!-- Floating CTA Button -->
-  <button type="button" onclick="document.getElementById('quiz').scrollIntoView({behavior: 'smooth'})" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 z-50 bg-terracotta hover:bg-[#c0553d] text-white font-bold py-3.5 px-5 sm:px-6 rounded-full shadow-float flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 group border-2 border-white cursor-pointer">
+  <!-- Floating CTA Button with dynamic opacity via JS -->
+  <button id="floating-cta" type="button" onclick="document.getElementById('quiz').scrollIntoView({behavior: 'smooth'})" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 z-50 bg-terracotta hover:bg-[#c0553d] text-white font-bold py-3.5 px-5 sm:px-6 rounded-full shadow-float flex items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 group border-2 border-white cursor-pointer opacity-100">
     <span class="text-xl sm:text-2xl">🎁</span>
-    <span class="hidden sm:inline-block tracking-wide">Register for early access (25% discount)</span>
+    <span class="hidden sm:inline-block tracking-wide">Register now & get 25% off for life</span>
     <span class="sm:hidden tracking-wide text-sm">Register: 25% Off</span>
   </button>
 
@@ -104,7 +102,6 @@
 
       <div class="flex items-center gap-3 sm:gap-6">
         <a href="#how-it-works" class="hidden md:inline-block text-sm font-medium text-forest-muted hover:text-forest transition-colors">How It Works</a>
-        <!-- Admin Dashboard button removed here -->
         <a href="#quiz" class="inline-flex items-center justify-center text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full bg-forest text-bone hover:bg-matcha hover:shadow-soft transition-all active:scale-95">
           Take Gut Quiz
         </a>
@@ -139,7 +136,6 @@
 
         <div class="lg:col-span-5 flex justify-center flex-col items-center">
           
-          <!-- Interactive Meal Selection Tabs -->
           <div class="flex gap-2 mb-4 bg-eucalyptus/30 p-1.5 rounded-full">
             <button id="tab-meal-1" onclick="switchMeal(1)" class="px-4 py-2 text-xs font-bold rounded-full bg-matcha text-white transition-colors cursor-pointer shadow-sm">Grain Bowl</button>
             <button id="tab-meal-2" onclick="switchMeal(2)" class="px-4 py-2 text-xs font-bold rounded-full bg-transparent text-forest-muted hover:bg-white transition-colors cursor-pointer">Burger Meal</button>
@@ -149,7 +145,7 @@
           <div class="w-full max-w-[340px] sm:max-w-[360px] bg-forest p-3.5 sm:p-4 rounded-[40px] shadow-float border-4 border-forest text-forest">
             <div class="bg-bone rounded-[32px] overflow-hidden border border-eucalyptus flex flex-col relative min-h-[420px]">
               
-              <!-- MEAL 1: Grain Bowl -->
+              <!-- MEAL 1 -->
               <div id="meal-view-1" class="p-4 space-y-3.5 mt-2">
                 <div class="relative rounded-2xl overflow-hidden bg-white p-3 border border-eucalyptus/70 shadow-sm">
                   <div class="flex items-start justify-between">
@@ -188,8 +184,8 @@
                 </div>
               </div>
 
-              <!-- MEAL 2: Burger & Diet Drink (Hidden initially) -->
-              <div id="meal-view-2" class="p-4 space-y-3.5 mt-2 hide-meal">
+              <!-- MEAL 2 -->
+              <div id="meal-view-2" class="p-4 space-y-3.5 mt-2 hidden">
                 <div class="relative rounded-2xl overflow-hidden bg-white p-3 border border-eucalyptus/70 shadow-sm">
                   <div class="flex items-start justify-between">
                     <div>
@@ -227,8 +223,8 @@
                 </div>
               </div>
 
-              <!-- MEAL 3: Pizza & Salad (Hidden initially) -->
-              <div id="meal-view-3" class="p-4 space-y-3.5 mt-2 hide-meal">
+              <!-- MEAL 3 -->
+              <div id="meal-view-3" class="p-4 space-y-3.5 mt-2 hidden">
                 <div class="relative rounded-2xl overflow-hidden bg-white p-3 border border-eucalyptus/70 shadow-sm">
                   <div class="flex items-start justify-between">
                     <div>
@@ -272,9 +268,21 @@
       </div>
     </section>
 
-    <section id="quiz" class="py-16 sm:py-24 bg-white border-t border-eucalyptus/60 scroll-mt-20">
+    <!-- Quiz Section -->
+    <section id="quiz" class="py-16 sm:py-24 bg-white border-t border-eucalyptus/60 scroll-mt-10">
       <div class="max-w-3xl mx-auto px-4 sm:px-6">
         
+        <!-- Registration & Discount Explanation Banner -->
+        <div class="text-center mb-8">
+          <div class="inline-flex flex-col sm:flex-row items-center gap-3 px-5 py-4 bg-apricot-light border border-apricot/40 rounded-2xl shadow-sm text-forest max-w-2xl mx-auto">
+            <span class="text-3xl">🎁</span>
+            <div class="text-left">
+              <strong class="block text-apricot font-bold text-base mb-0.5">Complete this quiz to register.</strong>
+              <span class="text-sm font-medium">If you refer 3 friends who sign up after you, you will get <strong class="text-forest font-bold">25% off for life!</strong></span>
+            </div>
+          </div>
+        </div>
+
         <div id="quiz-card-box" class="bg-bone border-2 border-eucalyptus/80 rounded-[32px] sm:rounded-[40px] p-6 sm:p-10 shadow-soft relative overflow-hidden">
           
           <div class="mb-8" id="quiz-progress-container">
@@ -512,8 +520,8 @@
             <div class="mb-6 p-4 rounded-2xl bg-apricot-light border border-apricot/30 text-forest text-sm flex flex-col sm:flex-row items-start sm:items-center gap-3 shadow-sm">
               <span class="text-2xl leading-none">🎁</span>
               <div>
-                <strong class="block text-apricot font-bold mb-0.5">Referral Bonus</strong>
-                A 25% discount for life will be given for 3 referrals that sign up!
+                <strong class="block text-apricot font-bold mb-0.5">Referral Bonus Locked In</strong>
+                If you refer 3 friends who sign up after you finish registration, you get 25% off for life!
               </div>
             </div>
             
@@ -560,7 +568,7 @@
 
               <div class="pt-2">
                 <button type="submit" id="btn-submit-lead" class="w-full py-4 rounded-full bg-matcha hover:bg-matcha-hover text-white font-semibold text-base shadow-soft transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
-                  <span>Claim Early Access & Lock In Rate</span>
+                  <span>Register Now & Lock In Status</span>
                 </button>
               </div>
             </form>
@@ -571,6 +579,7 @@
             <div>
               <span class="text-xs font-bold uppercase tracking-wider text-matcha">Spot Secured!</span>
               <h3 class="font-editorial text-3xl font-bold text-forest mt-1">You're on the early access list.</h3>
+              <p class="text-sm text-forest-muted mt-3 max-w-sm mx-auto">Check your email for your unique referral link. Share it with 3 friends to claim your 25% lifetime discount once they sign up.</p>
             </div>
           </div>
 
@@ -589,7 +598,6 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           
-          <!-- Card 1 -->
           <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-eucalyptus/60 hover:border-matcha/50 transition-colors">
             <div class="w-14 h-14 bg-matcha-light text-matcha rounded-2xl flex items-center justify-center mb-5 border border-matcha/20">
               <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
@@ -600,7 +608,6 @@
             </p>
           </div>
 
-          <!-- Card 2 -->
           <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-eucalyptus/60 hover:border-matcha/50 transition-colors">
             <div class="w-14 h-14 bg-apricot-light text-apricot rounded-2xl flex items-center justify-center mb-5 border border-apricot/20">
               <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
@@ -611,7 +618,6 @@
             </p>
           </div>
 
-          <!-- Card 3 -->
           <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-eucalyptus/60 hover:border-matcha/50 transition-colors">
             <div class="w-14 h-14 bg-terracotta-light text-terracotta rounded-2xl flex items-center justify-center mb-5 border border-terracotta/20">
               <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
@@ -628,25 +634,49 @@
   </main>
 
   <script>
-    // Tab functionality for the Multi-Meal Hero mockup
-    function switchMeal(index) {
-      // Hide all meals and reset tab styles
-      for(let i=1; i<=3; i++) {
-         document.getElementById('meal-view-' + i).classList.add('hide-meal');
-         
-         const tab = document.getElementById('tab-meal-' + i);
-         tab.classList.remove('bg-matcha', 'text-white');
-         tab.classList.add('bg-transparent', 'text-forest-muted');
+    // --- Scroll Observer for Floating CTA ---
+    document.addEventListener("DOMContentLoaded", function() {
+      const floatingCta = document.getElementById('floating-cta');
+      const quizSection = document.getElementById('quiz');
+
+      if (floatingCta && quizSection) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Hide button when quiz is visible
+              floatingCta.style.opacity = '0';
+              floatingCta.style.pointerEvents = 'none';
+            } else {
+              // Show button when scrolling elsewhere
+              floatingCta.style.opacity = '1';
+              floatingCta.style.pointerEvents = 'auto';
+            }
+          });
+        }, { threshold: 0.1 }); // triggers when 10% of the quiz is in view
+
+        observer.observe(quizSection);
       }
-      
-      // Show selected meal and activate tab
-      document.getElementById('meal-view-' + index).classList.remove('hide-meal');
-      const activeTab = document.getElementById('tab-meal-' + index);
-      activeTab.classList.remove('bg-transparent', 'text-forest-muted');
-      activeTab.classList.add('bg-matcha', 'text-white');
+    });
+
+    // --- Tab functionality for the Multi-Meal Hero mockup ---
+    function switchMeal(index) {
+      for(let i=1; i<=3; i++) {
+         const view = document.getElementById('meal-view-' + i);
+         const tab = document.getElementById('tab-meal-' + i);
+         
+         if (i === index) {
+            view.classList.remove('hidden');
+            tab.classList.remove('bg-transparent', 'text-forest-muted');
+            tab.classList.add('bg-matcha', 'text-white');
+         } else {
+            view.classList.add('hidden');
+            tab.classList.remove('bg-matcha', 'text-white');
+            tab.classList.add('bg-transparent', 'text-forest-muted');
+         }
+      }
     }
 
-    // Quiz logic below
+    // --- Quiz Logic ---
     let currentStep = 1;
 
     function updateQuizProgress(step) {
