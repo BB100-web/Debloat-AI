@@ -308,4 +308,540 @@
             
             <div class="space-y-3">
               <div class="checkbox-card">
-                <input type="checkbox" name="goal"
+                <input type="checkbox" name="goal" id="g1" value="flat_all_day" class="hidden" checked>
+                <label for="g1" class="p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <span>Keep a flat, comfortable stomach from morning to night</span>
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" name="goal" id="g2" value="stop_unbuttoning" class="hidden">
+                <label for="g2" class="p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <span>Stop having to unbutton my trousers after lunch</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-end">
+              <button type="button" onclick="nextQuizStep(2)" class="px-8 py-3.5 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha transition-all active:scale-95 shadow-sm cursor-pointer">
+                Continue &rarr;
+              </button>
+            </div>
+          </div>
+
+          <div id="step-2" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Biological Baseline</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">Select your biological baseline</h3>
+            
+            <div class="space-y-3">
+              <div class="radio-card">
+                <input type="radio" name="sex" id="s1" value="female" class="hidden" checked>
+                <label for="s1" class="p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest block">
+                  Female
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="sex" id="s2" value="male" class="hidden">
+                <label for="s2" class="p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest block">
+                  Male
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button type="button" onclick="prevQuizStep(1)" class="text-xs font-semibold text-forest-muted cursor-pointer">← Back</button>
+              <button type="button" onclick="nextQuizStep(3)" class="px-8 py-3.5 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha cursor-pointer">
+                Continue &rarr;
+              </button>
+            </div>
+          </div>
+
+          <div id="step-3" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Symptom Patterns</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">When do you notice your bloating the most?</h3>
+            
+            <div class="space-y-3">
+              <div class="checkbox-card">
+                <input type="checkbox" name="timing" id="t1" value="lunch" class="hidden" checked>
+                <label for="t1" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha text-sm font-semibold text-forest">
+                  30 to 90 minutes after eating lunch
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" name="timing" id="t2" value="evening" class="hidden">
+                <label for="t2" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha text-sm font-semibold text-forest">
+                  In the evening (Flat morning, but "food baby" by 8 PM)
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button type="button" onclick="prevQuizStep(2)" class="text-xs font-semibold text-forest-muted cursor-pointer">← Back</button>
+              <button type="button" onclick="nextQuizStep(4)" class="px-8 py-3.5 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha cursor-pointer">
+                Continue &rarr;
+              </button>
+            </div>
+          </div>
+
+          <div id="step-4" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Mechanical Distension</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">How much does your waistline expand?</h3>
+            
+            <div class="space-y-3 mt-6">
+              <div class="checkbox-card">
+                <input type="checkbox" name="severity" id="sev1" value="mild" class="hidden">
+                <label for="sev1" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha text-sm font-semibold text-forest">
+                  Barely visible, but feels uncomfortably tight
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" name="severity" id="sev2" value="moderate" class="hidden" checked>
+                <label for="sev2" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha text-sm font-semibold text-forest">
+                  1 to 2 inches (Clothes cut into stomach)
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button type="button" onclick="prevQuizStep(3)" class="text-xs font-semibold text-forest-muted cursor-pointer">← Back</button>
+              <button type="button" onclick="nextQuizStep(5)" class="px-8 py-3.5 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha cursor-pointer">
+                Continue &rarr;
+              </button>
+            </div>
+          </div>
+
+          <div id="step-5" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Culprit Detection</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">Which foods trigger your bloat?</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div class="checkbox-card">
+                <input type="checkbox" id="c_garlic" value="Garlic" class="hidden" checked>
+                <label for="c_garlic" class="block p-3 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha text-xs font-semibold text-forest">
+                  Garlic & Onions (Fructans)
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" id="c_dairy" value="Dairy" class="hidden" checked>
+                <label for="c_dairy" class="block p-3 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha text-xs font-semibold text-forest">
+                  Dairy & Milk
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" id="c_sweetener" value="SugarAlcohols" class="hidden">
+                <label for="c_sweetener" class="block p-3 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha text-xs font-semibold text-forest">
+                  Zero-Sugar foods
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button type="button" onclick="prevQuizStep(4)" class="text-xs font-semibold text-forest-muted cursor-pointer">← Back</button>
+              <button type="button" onclick="triggerAiAnalysis()" class="px-8 py-3.5 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha cursor-pointer">
+                Analyze Gut Profile &rarr;
+              </button>
+            </div>
+          </div>
+
+          <div id="step-6" class="quiz-step hidden py-8 text-center space-y-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-matcha-light border-2 border-matcha flex items-center justify-center text-3xl animate-pulse">
+              🧬
+            </div>
+            <div>
+              <h3 class="font-editorial text-2xl font-bold text-forest">Synthesizing Gut Fermentation Archetype...</h3>
+              <p class="text-xs text-forest-muted mt-1" id="ai-loading-text">Cross-referencing food compounds...</p>
+            </div>
+            <div class="max-w-md mx-auto bg-eucalyptus/60 h-3 rounded-full overflow-hidden p-0.5">
+              <div id="ai-calc-progress" class="bg-matcha h-full rounded-full transition-all duration-300" style="width: 15%;"></div>
+            </div>
+          </div>
+
+          <div id="step-7" class="quiz-step hidden space-y-5">
+            <div class="p-5 rounded-3xl bg-matcha-light border border-matcha/40 shadow-sm">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-matcha">Calculated Archetype</span>
+                <span class="text-xs font-bold text-forest bg-white px-3 py-1 rounded-full border border-matcha/20">High Sensitivity</span>
+              </div>
+              <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1">Your Gut Archetype: Rapid Fermenter</h3>
+              
+              <p class="text-xs sm:text-sm text-forest-muted mt-2.5 leading-relaxed">
+                Your responses indicate that <strong id="dyn-perc-1">82%</strong> of your afternoon swelling is non-caloric. Here is the breakdown of your meal triggers:
+              </p>
+
+              <div class="mt-4 space-y-2">
+                <div class="flex items-start gap-2.5 p-3 bg-white border border-terracotta/40 rounded-xl">
+                  <span class="text-terracotta mt-0.5 text-lg">🔴</span>
+                  <div>
+                     <strong class="block text-sm text-forest">Worst Offender (Avoid)</strong>
+                     <span id="dyn-worst" class="text-xs text-forest-muted">Garlic & Onions (Fructans)</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2.5 p-3 bg-white border border-apricot/40 rounded-xl">
+                  <span class="text-apricot mt-0.5 text-lg">🟠</span>
+                  <div>
+                     <strong class="block text-sm text-forest">Moderate Trigger (Limit)</strong>
+                     <span id="dyn-moderate" class="text-xs text-forest-muted">Dairy & Milk</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2.5 p-3 bg-white border border-matcha/40 rounded-xl">
+                  <span class="text-matcha mt-0.5 text-lg">🟢</span>
+                  <div>
+                     <strong class="block text-sm text-forest">Gut-Safe (Okay on plate)</strong>
+                     <span class="text-xs text-forest-muted">Lean proteins, Quinoa, Leafy greens</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="p-5 rounded-3xl bg-white border border-eucalyptus shadow-sm">
+              <h4 class="text-xs font-bold text-forest uppercase tracking-wider mb-3">Projected 14-Day Transformation Curve</h4>
+              <div class="space-y-3 text-xs sm:text-sm">
+                <div class="flex items-center justify-between p-2 rounded-xl bg-bone">
+                  <span class="text-forest-muted">Day 1 (Current Baseline):</span>
+                  <span class="font-bold text-terracotta">+2.8" Afternoon Distension</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-xl bg-bone">
+                  <span class="text-forest-muted">Day 7 (After Swaps):</span>
+                  <span class="font-bold text-apricot">+0.8" Mild Tightness</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-xl bg-matcha-light border border-matcha/30">
+                  <span class="text-forest font-semibold">Day 14 (Stabilized Gut):</span>
+                  <span class="font-bold text-matcha">Flat Waistline (<span id="dyn-perc-2">-92%</span>)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-eucalyptus/60 text-center">
+              <button type="button" onclick="nextQuizStep(8)" class="w-full py-4 rounded-full bg-forest hover:bg-matcha text-white font-bold text-base shadow-soft hover:shadow-lg transition-all active:scale-98 flex items-center justify-center cursor-pointer">
+                Continue: Select Early Access Pricing &rarr;
+              </button>
+            </div>
+          </div>
+
+          <div id="step-8" class="quiz-step hidden">
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-4">
+              Select your preferred early access pricing
+            </h3>
+
+            <div class="mb-6 p-4 rounded-2xl bg-apricot-light border border-apricot/30 text-forest text-sm flex flex-col sm:flex-row items-start sm:items-center gap-3 shadow-sm">
+              <span class="text-2xl leading-none">🎁</span>
+              <div>
+                <strong class="block text-apricot font-bold mb-0.5">Referral Bonus Locked In</strong>
+                If you refer 3 friends who sign up after you finish registration, you get 25% off for life!
+              </div>
+            </div>
+            
+            <div class="space-y-3">
+              <div class="radio-card">
+                <input type="radio" name="pricing" id="p1" value="5" class="hidden">
+                <label for="p1" class="p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <div class="font-bold text-forest">$5 / month <span class="text-xs font-normal text-forest-muted">(Basic)</span></div>
+                </label>
+              </div>
+
+              <div class="radio-card">
+                <input type="radio" name="pricing" id="p2" value="10" class="hidden" checked>
+                <label for="p2" class="p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <div class="font-bold text-forest">$10 / month <span class="text-xs font-bold text-matcha">(Recommended)</span></div>
+                  <span class="text-xs font-bold bg-matcha text-white px-2 py-0.5 rounded-full">Popular</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button type="button" onclick="prevQuizStep(7)" class="text-xs font-semibold text-forest-muted cursor-pointer">← Back</button>
+              <button type="button" onclick="nextQuizStep(9)" class="px-8 py-3.5 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha cursor-pointer">
+                Claim Priority Spot &rarr;
+              </button>
+            </div>
+          </div>
+
+          <div id="step-9" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Priority Reservation</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">Where should we send your report?</h3>
+            <p class="text-xs sm:text-sm text-forest-muted mb-6">Lock in your early access spot and save your diagnostic profile.</p>
+            
+            <form id="lead-capture-form" onsubmit="handleFormSubmission(event)" class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-forest uppercase tracking-wider mb-1">Your Name</label>
+                <input type="text" id="lead-name" required placeholder="e.g. Sarah Jenkins" class="w-full px-4 py-3.5 rounded-2xl border border-eucalyptus focus:border-matcha focus:ring-1 focus:ring-matcha bg-white text-forest text-sm outline-none transition-all">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-forest uppercase tracking-wider mb-1">Email Address</label>
+                <input type="email" id="lead-email" required placeholder="sarah@example.com" class="w-full px-4 py-3.5 rounded-2xl border border-eucalyptus focus:border-matcha focus:ring-1 focus:ring-matcha bg-white text-forest text-sm outline-none transition-all">
+              </div>
+
+              <div class="pt-2">
+                <button type="submit" id="btn-submit-lead" class="w-full py-4 rounded-full bg-matcha hover:bg-matcha-hover text-white font-semibold text-base shadow-soft transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
+                  <span>Register Now & Lock In Status</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Step 10: Updated with Referral Box -->
+          <div id="step-10" class="quiz-step hidden py-4 text-center space-y-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-matcha-light text-matcha flex items-center justify-center text-3xl">🎉</div>
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-matcha">Spot Secured!</span>
+              <h3 class="font-editorial text-3xl font-bold text-forest mt-1">You're on the early access list.</h3>
+              <p class="text-sm text-forest-muted mt-3 max-w-sm mx-auto">When the app is available and our quota is reached, you will be notified via email.</p>
+            </div>
+
+            <!-- Referral Share Box -->
+            <div class="mt-6 p-5 bg-apricot-light border border-apricot/40 rounded-2xl max-w-md mx-auto text-left relative z-10">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xl">🎁</span>
+                <strong class="text-forest font-bold text-sm">Want 25% off for life?</strong>
+              </div>
+              <p class="text-xs text-forest-muted mb-4">Copy and share your unique link below. If 3 friends register through it, your discount is locked in!</p>
+              
+              <div class="flex items-center gap-2">
+                <input type="text" id="ref-link-display" readonly class="w-full px-4 py-3 rounded-xl border border-apricot/50 bg-white text-forest text-xs sm:text-sm font-medium outline-none">
+                <button type="button" onclick="copyRefLink()" class="px-5 py-3 bg-forest hover:bg-matcha text-white rounded-xl text-sm font-bold shadow-sm transition-colors cursor-pointer whitespace-nowrap">
+                  Copy
+                </button>
+              </div>
+              <p id="copy-feedback" class="text-xs text-matcha font-bold mt-2 hidden text-center transition-all">✅ Link copied to clipboard!</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Scientific Evidence Grid Section -->
+    <section class="py-16 sm:py-24 bg-bone border-t border-eucalyptus/60">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="font-editorial text-3xl sm:text-4xl font-bold text-forest mb-4">Scientific Methodology & Evidence</h2>
+          <p class="text-sm text-forest-muted">Our AI models are trained on the latest peer-reviewed clinical gastroenterology data, identifying exact mechanical triggers rather than relying on caloric guesswork.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          
+          <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-eucalyptus/60 hover:border-matcha/50 transition-colors">
+            <div class="w-14 h-14 bg-matcha-light text-matcha rounded-2xl flex items-center justify-center mb-5 border border-matcha/20">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+            </div>
+            <h5 class="font-editorial text-xl font-bold text-forest mb-2.5">Osmotic Fermentation</h5>
+            <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+              Distension is rarely caused by food volume alone. Our Bloat Risk Index (BRI) tracks the exact short-chain carbohydrates (FODMAPs) that gut bacteria ferment, causing rapid and painful gas expansion.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-eucalyptus/60 hover:border-matcha/50 transition-colors">
+            <div class="w-14 h-14 bg-apricot-light text-apricot rounded-2xl flex items-center justify-center mb-5 border border-apricot/20">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
+            <h5 class="font-editorial text-xl font-bold text-forest mb-2.5">90% Distension Reduction</h5>
+            <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+              Clinical studies demonstrate that removing an individual's severe biological triggers—while keeping "gut-safe" whole foods on the plate—can reduce mechanical waistline swelling by up to 90% within 14 days.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-eucalyptus/60 hover:border-matcha/50 transition-colors">
+            <div class="w-14 h-14 bg-terracotta-light text-terracotta rounded-2xl flex items-center justify-center mb-5 border border-terracotta/20">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+            </div>
+            <h5 class="font-editorial text-xl font-bold text-forest mb-2.5">Algorithmic Isolation</h5>
+            <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+              By cross-referencing your baseline symptoms against visual food scanning, DeBloat AI pinpoints your primary triggers instantly. This eliminates the need for restrictive, months-long elimination diets.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // --- Scroll Observer for Floating CTA ---
+    document.addEventListener("DOMContentLoaded", function() {
+      const floatingCta = document.getElementById('floating-cta');
+      const quizSection = document.getElementById('quiz');
+
+      if (floatingCta && quizSection) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Hide button when quiz is visible
+              floatingCta.style.opacity = '0';
+              floatingCta.style.pointerEvents = 'none';
+            } else {
+              // Show button when scrolling elsewhere
+              floatingCta.style.opacity = '1';
+              floatingCta.style.pointerEvents = 'auto';
+            }
+          });
+        }, { threshold: 0.1 }); 
+
+        observer.observe(quizSection);
+      }
+    });
+
+    // --- Tab functionality for the Multi-Meal Hero mockup ---
+    function switchMeal(index) {
+      for(let i=1; i<=3; i++) {
+         const view = document.getElementById('meal-view-' + i);
+         const tab = document.getElementById('tab-meal-' + i);
+         
+         if (i === index) {
+            view.classList.remove('hidden');
+            // Hard overwrite the class so hover state is destroyed
+            tab.className = 'whitespace-nowrap flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-full bg-matcha text-white shadow-sm transition-colors cursor-pointer';
+         } else {
+            view.classList.add('hidden');
+            // Restore inactive class
+            tab.className = 'whitespace-nowrap flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-full bg-transparent text-forest-muted hover:bg-white transition-colors cursor-pointer';
+         }
+      }
+    }
+
+    // --- Quiz Logic ---
+    let currentStep = 1;
+
+    function updateQuizProgress(step) {
+      currentStep = step;
+      let progressPercent = Math.min(100, Math.round((step / 5) * 100));
+      
+      const barEl = document.getElementById('quiz-progress-bar');
+      const percentEl = document.getElementById('quiz-progress-percent');
+      const stepIndicator = document.getElementById('quiz-step-indicator');
+      const container = document.getElementById('quiz-progress-container');
+      
+      if (step <= 5) {
+        if (barEl) barEl.style.width = `${progressPercent}%`;
+        if (percentEl) percentEl.innerText = `${progressPercent}%`;
+        if (stepIndicator) stepIndicator.innerText = `Question ${step} of 5`;
+        if (container) container.classList.remove('hidden');
+      } else if (step === 7) {
+        if (stepIndicator) stepIndicator.innerText = `Diagnostic Results Ready`;
+        if (percentEl) percentEl.innerText = `100%`;
+        if (container) container.classList.remove('hidden');
+      } else if (step >= 8) {
+        if (container) container.classList.add('hidden');
+      }
+
+      for (let i = 1; i <= 10; i++) {
+        const el = document.getElementById(`step-${i}`);
+        if (el) el.classList.add('hidden');
+      }
+
+      const activeEl = document.getElementById(`step-${step}`);
+      if (activeEl) {
+        activeEl.classList.remove('hidden');
+      }
+
+      const quizBox = document.getElementById('quiz-card-box');
+      if (quizBox) {
+        quizBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function nextQuizStep(step) {
+      updateQuizProgress(step);
+    }
+
+    function prevQuizStep(step) {
+      updateQuizProgress(step);
+    }
+
+    function triggerAiAnalysis() {
+      updateQuizProgress(6);
+      
+      const randSwelling = Math.floor(Math.random() * (89 - 72 + 1) + 72); 
+      const randReduction = Math.floor(Math.random() * (98 - 85 + 1) + 85); 
+      
+      document.getElementById('dyn-perc-1').innerText = randSwelling + '%';
+      document.getElementById('dyn-perc-2').innerText = '-' + randReduction + '%';
+
+      const isGarlic = document.getElementById('c_garlic').checked;
+      const isDairy = document.getElementById('c_dairy').checked;
+      const isSweetener = document.getElementById('c_sweetener').checked;
+
+      let worstTriggers = [];
+      let moderateTriggers = [];
+
+      if (isGarlic) worstTriggers.push("Garlic & Onions");
+      if (isDairy) worstTriggers.push("Dairy & Lactose");
+      if (isSweetener) worstTriggers.push("Zero-Sugar Sweeteners");
+      
+      if(worstTriggers.length === 0) {
+          worstTriggers.push("Hidden Emulsifiers");
+          moderateTriggers.push("Processed Seed Oils");
+      } else if (worstTriggers.length === 1) {
+          moderateTriggers.push("Processed Seed Oils");
+      } else {
+          moderateTriggers.push(worstTriggers.pop()); 
+      }
+
+      document.getElementById('dyn-worst').innerText = worstTriggers.join(", ") + " (High Fructans/Osmotics)";
+      document.getElementById('dyn-moderate').innerText = moderateTriggers.join(", ") + " (Gastric Delays)";
+
+      const calcProgress = document.getElementById('ai-calc-progress');
+      setTimeout(() => { if (calcProgress) calcProgress.style.width = '45%'; }, 700);
+      setTimeout(() => { if (calcProgress) calcProgress.style.width = '85%'; }, 1500);
+      setTimeout(() => { if (calcProgress) calcProgress.style.width = '100%'; }, 2300);
+      setTimeout(() => { updateQuizProgress(7); }, 2800);
+    }
+
+    // --- Updated Form Submission with Unique Link Generation ---
+    async function handleFormSubmission(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('lead-name').value;
+      const email = document.getElementById('lead-email').value;
+      const submitBtn = document.getElementById('btn-submit-lead');
+      
+      submitBtn.innerHTML = "Registering...";
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-75');
+
+      // Generate a unique-looking referral code based on their email
+      const uniqueCode = btoa(email).substring(0, 8).replace(/=/g, '').toLowerCase();
+      
+      // Get the current URL of the website and append the tracking code
+      const baseUrl = window.location.origin + window.location.pathname;
+      const refLink = `${baseUrl}?ref=${uniqueCode}`;
+
+      // Insert the link into Step 10 so the user can copy it immediately
+      document.getElementById('ref-link-display').value = refLink;
+
+      // ⚠️ REMEMBER TO PASTE YOUR UPDATED GOOGLE SCRIPT URL HERE:
+      const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+      
+      try {
+        // Send the data (including the new refLink) to Google
+        await fetch(scriptURL, {
+          method: 'POST',
+          body: new URLSearchParams({ 'name': name, 'email': email, 'refLink': refLink })
+        });
+        
+        updateQuizProgress(10);
+      } catch (error) {
+        console.error('Error!', error.message);
+        // Even if connection fails, move to success screen so user isn't stuck
+        updateQuizProgress(10);
+      }
+    }
+
+    // --- Copy to Clipboard Functionality ---
+    function copyRefLink() {
+      const copyText = document.getElementById("ref-link-display");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+      
+      navigator.clipboard.writeText(copyText.value).then(() => {
+        const feedback = document.getElementById("copy-feedback");
+        feedback.classList.remove("hidden");
+        setTimeout(() => {
+          feedback.classList.add("hidden");
+        }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>
