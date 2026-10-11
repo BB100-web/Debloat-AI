@@ -72,14 +72,22 @@
       background-color: #EBF3EE;
       box-shadow: 0 0 0 2px #4A7C59;
     }
+    /* Simple hide utility for tab switching */
+    .hide-meal { display: none; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-matcha-light selection:text-forest">
 
+  <!-- Floating CTA Button -->
+  <button type="button" onclick="document.getElementById('quiz').scrollIntoView({behavior: 'smooth'})" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 z-50 bg-terracotta hover:bg-[#c0553d] text-white font-bold py-3.5 px-5 sm:px-6 rounded-full shadow-float flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 group border-2 border-white cursor-pointer">
+    <span class="text-xl sm:text-2xl">🎁</span>
+    <span class="hidden sm:inline-block tracking-wide">Register for early access (25% discount)</span>
+    <span class="sm:hidden tracking-wide text-sm">Register: 25% Off</span>
+  </button>
+
   <div class="bg-forest text-bone text-xs py-2 px-4 text-center font-medium tracking-wide flex items-center justify-center gap-2">
     <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
     <span>Accepting 500 early testers for US, UK & Global Closed Beta • Zero calorie counting</span>
-    <a href="#quiz" class="underline ml-1 font-semibold hover:text-eucalyptus transition-colors">Claim Spot &rarr;</a>
   </div>
 
   <header class="sticky top-0 z-40 bg-bone/90 backdrop-blur-md border-b border-eucalyptus/60 transition-all">
@@ -96,10 +104,7 @@
 
       <div class="flex items-center gap-3 sm:gap-6">
         <a href="#how-it-works" class="hidden md:inline-block text-sm font-medium text-forest-muted hover:text-forest transition-colors">How It Works</a>
-        <button type="button" onclick="alert('Admin Dashboard functionality goes here')" class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-eucalyptus text-forest-muted hover:text-forest hover:bg-bone transition-all flex items-center gap-1.5 cursor-pointer">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-          <span class="hidden sm:inline">Admin</span> Dashboard
-        </button>
+        <!-- Admin Dashboard button removed here -->
         <a href="#quiz" class="inline-flex items-center justify-center text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full bg-forest text-bone hover:bg-matcha hover:shadow-soft transition-all active:scale-95">
           Take Gut Quiz
         </a>
@@ -132,59 +137,135 @@
           </div>
         </div>
 
-        <div class="lg:col-span-5 flex justify-center">
+        <div class="lg:col-span-5 flex justify-center flex-col items-center">
+          
+          <!-- Interactive Meal Selection Tabs -->
+          <div class="flex gap-2 mb-4 bg-eucalyptus/30 p-1.5 rounded-full">
+            <button id="tab-meal-1" onclick="switchMeal(1)" class="px-4 py-2 text-xs font-bold rounded-full bg-matcha text-white transition-colors cursor-pointer shadow-sm">Grain Bowl</button>
+            <button id="tab-meal-2" onclick="switchMeal(2)" class="px-4 py-2 text-xs font-bold rounded-full bg-transparent text-forest-muted hover:bg-white transition-colors cursor-pointer">Burger Meal</button>
+            <button id="tab-meal-3" onclick="switchMeal(3)" class="px-4 py-2 text-xs font-bold rounded-full bg-transparent text-forest-muted hover:bg-white transition-colors cursor-pointer">Pizza & Salad</button>
+          </div>
+
           <div class="w-full max-w-[340px] sm:max-w-[360px] bg-forest p-3.5 sm:p-4 rounded-[40px] shadow-float border-4 border-forest text-forest">
-            <div class="bg-bone rounded-[32px] overflow-hidden border border-eucalyptus flex flex-col relative">
-              <div class="p-4 space-y-3.5 bg-bone mt-4">
+            <div class="bg-bone rounded-[32px] overflow-hidden border border-eucalyptus flex flex-col relative min-h-[420px]">
+              
+              <!-- MEAL 1: Grain Bowl -->
+              <div id="meal-view-1" class="p-4 space-y-3.5 mt-2">
                 <div class="relative rounded-2xl overflow-hidden bg-white p-3 border border-eucalyptus/70 shadow-sm">
                   <div class="flex items-start justify-between">
                     <div>
                       <span class="text-[10px] uppercase font-bold tracking-wider text-matcha">Detected Meal</span>
                       <h4 class="font-editorial text-base font-bold text-forest">Harvest Grain & Kale Bowl</h4>
                     </div>
-                    <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-terracotta-light text-terracotta border border-terracotta/20">
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-terracotta-light text-terracotta border border-terracotta/20 whitespace-nowrap">
                       BRI 78/100
                     </span>
                   </div>
-                  
                   <div class="mt-2.5 p-2 bg-bone rounded-xl flex items-center gap-3">
                     <div class="text-3xl">🥗</div>
-                    <div class="text-xs text-forest-muted">
-                      Roasted chicken, quinoa, raw red onion, kale & raw garlic tahini dressing.
-                    </div>
+                    <div class="text-xs text-forest-muted">Roasted chicken, quinoa, raw red onion, kale & raw garlic tahini dressing.</div>
                   </div>
                 </div>
-
                 <div class="space-y-2">
                   <div class="p-3 rounded-2xl bg-terracotta-light border border-terracotta/30">
                     <div class="flex items-center justify-between text-xs font-bold text-terracotta mb-1">
                       <span class="flex items-center gap-1">🔴 Worst Offender</span>
                     </div>
-                    <p class="text-[11px] text-forest leading-snug">
-                      <strong class="text-terracotta">Raw Garlic & Onion:</strong> High-osmotic fructans trigger rapid fermentation.
-                    </p>
+                    <p class="text-[11px] text-forest leading-snug"><strong class="text-terracotta">Raw Garlic & Onion:</strong> High-osmotic fructans trigger rapid fermentation.</p>
                   </div>
-
                   <div class="p-3 rounded-2xl bg-apricot-light border border-apricot/30">
                     <div class="flex items-center justify-between text-xs font-bold text-apricot mb-1">
                       <span class="flex items-center gap-1">🟠 Moderate Trigger</span>
                     </div>
-                    <p class="text-[11px] text-forest leading-snug">
-                      <strong class="text-apricot">Tahini Dressing:</strong> High fat content slows gastric emptying.
-                    </p>
+                    <p class="text-[11px] text-forest leading-snug"><strong class="text-apricot">Tahini Dressing:</strong> High fat content slows gastric emptying.</p>
                   </div>
-
                   <div class="p-3 rounded-2xl bg-matcha-light border border-matcha/30">
                     <div class="flex items-center justify-between text-xs font-bold text-matcha mb-1">
-                      <span class="flex items-center gap-1">🟢 Gut-Safe (Okay on plate)</span>
+                      <span class="flex items-center gap-1">🟢 Gut-Safe (Keep)</span>
                     </div>
-                    <p class="text-[11px] text-forest leading-snug">
-                      <strong class="text-matcha">Chicken & Kale:</strong> Lean protein and digestible roughage. Keep these.
-                    </p>
+                    <p class="text-[11px] text-forest leading-snug"><strong class="text-matcha">Chicken & Kale:</strong> Lean protein and digestible roughage.</p>
                   </div>
                 </div>
-
               </div>
+
+              <!-- MEAL 2: Burger & Diet Drink (Hidden initially) -->
+              <div id="meal-view-2" class="p-4 space-y-3.5 mt-2 hide-meal">
+                <div class="relative rounded-2xl overflow-hidden bg-white p-3 border border-eucalyptus/70 shadow-sm">
+                  <div class="flex items-start justify-between">
+                    <div>
+                      <span class="text-[10px] uppercase font-bold tracking-wider text-matcha">Detected Meal</span>
+                      <h4 class="font-editorial text-base font-bold text-forest">Burger, Fries & Sugar-Free Cola</h4>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-terracotta-light text-terracotta border border-terracotta/20 whitespace-nowrap">
+                      BRI 85/100
+                    </span>
+                  </div>
+                  <div class="mt-2.5 p-2 bg-bone rounded-xl flex items-center gap-3">
+                    <div class="text-3xl">🍔</div>
+                    <div class="text-xs text-forest-muted">Beef patty, wheat bun, salted fries, zero-sugar carbonated soda.</div>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <div class="p-3 rounded-2xl bg-terracotta-light border border-terracotta/30">
+                    <div class="flex items-center justify-between text-xs font-bold text-terracotta mb-1">
+                      <span class="flex items-center gap-1">🔴 Worst Offender</span>
+                    </div>
+                    <p class="text-[11px] text-forest leading-snug"><strong class="text-terracotta">Sugar-Free Cola:</strong> Artificial sweeteners cause severe gut bacterial disruption.</p>
+                  </div>
+                  <div class="p-3 rounded-2xl bg-apricot-light border border-apricot/30">
+                    <div class="flex items-center justify-between text-xs font-bold text-apricot mb-1">
+                      <span class="flex items-center gap-1">🟠 Moderate Trigger</span>
+                    </div>
+                    <p class="text-[11px] text-forest leading-snug"><strong class="text-apricot">Burger Bun:</strong> Refined wheat and gluten can cause mild distension.</p>
+                  </div>
+                  <div class="p-3 rounded-2xl bg-matcha-light border border-matcha/30">
+                    <div class="flex items-center justify-between text-xs font-bold text-matcha mb-1">
+                      <span class="flex items-center gap-1">🟢 Gut-Safe (Keep)</span>
+                    </div>
+                    <p class="text-[11px] text-forest leading-snug"><strong class="text-matcha">100% Beef Patty:</strong> Pure protein digests easily without gas production.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- MEAL 3: Pizza & Salad (Hidden initially) -->
+              <div id="meal-view-3" class="p-4 space-y-3.5 mt-2 hide-meal">
+                <div class="relative rounded-2xl overflow-hidden bg-white p-3 border border-eucalyptus/70 shadow-sm">
+                  <div class="flex items-start justify-between">
+                    <div>
+                      <span class="text-[10px] uppercase font-bold tracking-wider text-matcha">Detected Meal</span>
+                      <h4 class="font-editorial text-base font-bold text-forest">Garlic Pizza & Rocket Salad</h4>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-terracotta-light text-terracotta border border-terracotta/20 whitespace-nowrap">
+                      BRI 92/100
+                    </span>
+                  </div>
+                  <div class="mt-2.5 p-2 bg-bone rounded-xl flex items-center gap-3">
+                    <div class="text-3xl">🍕</div>
+                    <div class="text-xs text-forest-muted">Thick crust with garlic butter, mozzarella, alongside fresh rocket & balsamic.</div>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <div class="p-3 rounded-2xl bg-terracotta-light border border-terracotta/30">
+                    <div class="flex items-center justify-between text-xs font-bold text-terracotta mb-1">
+                      <span class="flex items-center gap-1">🔴 Worst Offender</span>
+                    </div>
+                    <p class="text-[11px] text-forest leading-snug"><strong class="text-terracotta">Garlic Butter Crust:</strong> Double trigger (heavy fructans + thick dough).</p>
+                  </div>
+                  <div class="p-3 rounded-2xl bg-apricot-light border border-apricot/30">
+                    <div class="flex items-center justify-between text-xs font-bold text-apricot mb-1">
+                      <span class="flex items-center gap-1">🟠 Moderate Trigger</span>
+                    </div>
+                    <p class="text-[11px] text-forest leading-snug"><strong class="text-apricot">Melted Mozzarella:</strong> High lactose can overwhelm lactase enzyme capacity.</p>
+                  </div>
+                  <div class="p-3 rounded-2xl bg-matcha-light border border-matcha/30">
+                    <div class="flex items-center justify-between text-xs font-bold text-matcha mb-1">
+                      <span class="flex items-center gap-1">🟢 Gut-Safe (Keep)</span>
+                    </div>
+                    <p class="text-[11px] text-forest leading-snug"><strong class="text-matcha">Rocket Salad:</strong> Bitter greens stimulate healthy bile production.</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -233,7 +314,6 @@
             </div>
           </div>
 
-          <!-- Changed inputs back to "radio" so Male/Female acts exclusively -->
           <div id="step-2" class="quiz-step hidden">
             <span class="text-xs font-bold uppercase tracking-wider text-matcha">Biological Baseline</span>
             <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">Select your biological baseline</h3>
@@ -498,28 +578,75 @@
       </div>
     </section>
 
-    <section class="py-12 sm:py-16 bg-bone border-t border-eucalyptus/60">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <h4 class="font-editorial text-xl font-bold text-forest mb-4 flex items-center gap-2">
-          <svg class="w-5 h-5 text-matcha" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-          Scientific Methodology & Evidence
-        </h4>
-        <div class="text-xs sm:text-sm text-forest-muted space-y-4 leading-relaxed">
-          <p>
-            Our Bloat Risk Index (BRI) is developed based on recent clinical guidelines regarding osmotic fermentation and short-chain carbohydrate (FODMAP) absorption in the small intestine. Distension is rarely caused by caloric volume alone, but rather the rapid expansion of gas as gut bacteria ferment specific indigestible compounds.
-          </p>
-          <p>
-            Clinical studies demonstrate that removing an individual's severe biological triggers—while keeping "gut-safe" whole foods on the plate—can reduce mechanical waistline distension by up to 90% within a 14-day stabilization period. 
-          </p>
-          <p>
-            DeBloat AI cross-references your inputted baseline symptoms against known fermentation rates to identify your likely primary triggers, preventing the need for overly restrictive, elimination-style diets. 
-          </p>
+    <!-- Upgraded Scientific Evidence Grid Section -->
+    <section class="py-16 sm:py-24 bg-bone border-t border-eucalyptus/60">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="font-editorial text-3xl sm:text-4xl font-bold text-forest mb-4">Scientific Methodology & Evidence</h2>
+          <p class="text-sm text-forest-muted">Our AI models are trained on the latest peer-reviewed clinical gastroenterology data, identifying exact mechanical triggers rather than relying on caloric guesswork.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          
+          <!-- Card 1 -->
+          <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-eucalyptus/60 hover:border-matcha/50 transition-colors">
+            <div class="w-14 h-14 bg-matcha-light text-matcha rounded-2xl flex items-center justify-center mb-5 border border-matcha/20">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+            </div>
+            <h5 class="font-editorial text-xl font-bold text-forest mb-2.5">Osmotic Fermentation</h5>
+            <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+              Distension is rarely caused by food volume alone. Our Bloat Risk Index (BRI) tracks the exact short-chain carbohydrates (FODMAPs) that gut bacteria ferment, causing rapid and painful gas expansion.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-eucalyptus/60 hover:border-matcha/50 transition-colors">
+            <div class="w-14 h-14 bg-apricot-light text-apricot rounded-2xl flex items-center justify-center mb-5 border border-apricot/20">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
+            <h5 class="font-editorial text-xl font-bold text-forest mb-2.5">90% Distension Reduction</h5>
+            <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+              Clinical studies demonstrate that removing an individual's severe biological triggers—while keeping "gut-safe" whole foods on the plate—can reduce mechanical waistline swelling by up to 90% within 14 days.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-eucalyptus/60 hover:border-matcha/50 transition-colors">
+            <div class="w-14 h-14 bg-terracotta-light text-terracotta rounded-2xl flex items-center justify-center mb-5 border border-terracotta/20">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+            </div>
+            <h5 class="font-editorial text-xl font-bold text-forest mb-2.5">Algorithmic Isolation</h5>
+            <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+              By cross-referencing your baseline symptoms against visual food scanning, DeBloat AI pinpoints your primary triggers instantly. This eliminates the need for restrictive, months-long elimination diets.
+            </p>
+          </div>
+
         </div>
       </div>
     </section>
   </main>
 
   <script>
+    // Tab functionality for the Multi-Meal Hero mockup
+    function switchMeal(index) {
+      // Hide all meals and reset tab styles
+      for(let i=1; i<=3; i++) {
+         document.getElementById('meal-view-' + i).classList.add('hide-meal');
+         
+         const tab = document.getElementById('tab-meal-' + i);
+         tab.classList.remove('bg-matcha', 'text-white');
+         tab.classList.add('bg-transparent', 'text-forest-muted');
+      }
+      
+      // Show selected meal and activate tab
+      document.getElementById('meal-view-' + index).classList.remove('hide-meal');
+      const activeTab = document.getElementById('tab-meal-' + index);
+      activeTab.classList.remove('bg-transparent', 'text-forest-muted');
+      activeTab.classList.add('bg-matcha', 'text-white');
+    }
+
+    // Quiz logic below
     let currentStep = 1;
 
     function updateQuizProgress(step) {
