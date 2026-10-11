@@ -574,12 +574,30 @@
             </form>
           </div>
 
+          <!-- Step 10: Updated with Referral Box -->
           <div id="step-10" class="quiz-step hidden py-4 text-center space-y-6">
             <div class="w-16 h-16 mx-auto rounded-full bg-matcha-light text-matcha flex items-center justify-center text-3xl">🎉</div>
             <div>
               <span class="text-xs font-bold uppercase tracking-wider text-matcha">Spot Secured!</span>
               <h3 class="font-editorial text-3xl font-bold text-forest mt-1">You're on the early access list.</h3>
-              <p class="text-sm text-forest-muted mt-3 max-w-sm mx-auto">Check your email for your unique referral link. Share it with 3 friends to claim your 25% lifetime discount once they sign up.</p>
+              <p class="text-sm text-forest-muted mt-3 max-w-sm mx-auto">When the app is available and our quota is reached, you will be notified via email.</p>
+            </div>
+
+            <!-- Referral Share Box -->
+            <div class="mt-6 p-5 bg-apricot-light border border-apricot/40 rounded-2xl max-w-md mx-auto text-left relative z-10">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xl">🎁</span>
+                <strong class="text-forest font-bold text-sm">Want 25% off for life?</strong>
+              </div>
+              <p class="text-xs text-forest-muted mb-4">Copy and share your unique link below. If 3 friends register through it, your discount is locked in!</p>
+              
+              <div class="flex items-center gap-2">
+                <input type="text" id="ref-link-display" readonly class="w-full px-4 py-3 rounded-xl border border-apricot/50 bg-white text-forest text-xs sm:text-sm font-medium outline-none">
+                <button type="button" onclick="copyRefLink()" class="px-5 py-3 bg-forest hover:bg-matcha text-white rounded-xl text-sm font-bold shadow-sm transition-colors cursor-pointer whitespace-nowrap">
+                  Copy
+                </button>
+              </div>
+              <p id="copy-feedback" class="text-xs text-matcha font-bold mt-2 hidden text-center transition-all">✅ Link copied to clipboard!</p>
             </div>
           </div>
 
@@ -587,7 +605,7 @@
       </div>
     </section>
 
-    <!-- Upgraded Scientific Evidence Grid Section -->
+    <!-- Scientific Evidence Grid Section -->
     <section class="py-16 sm:py-24 bg-bone border-t border-eucalyptus/60">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         
@@ -652,7 +670,7 @@
               floatingCta.style.pointerEvents = 'auto';
             }
           });
-        }, { threshold: 0.1 }); // triggers when 10% of the quiz is in view
+        }, { threshold: 0.1 }); 
 
         observer.observe(quizSection);
       }
@@ -764,9 +782,59 @@
       setTimeout(() => { updateQuizProgress(7); }, 2800);
     }
 
-    function handleFormSubmission(e) {
+    // --- Updated Form Submission with Unique Link Generation ---
+    async function handleFormSubmission(e) {
       e.preventDefault();
-      updateQuizProgress(10);
+      
+      const name = document.getElementById('lead-name').value;
+      const email = document.getElementById('lead-email').value;
+      const submitBtn = document.getElementById('btn-submit-lead');
+      
+      submitBtn.innerHTML = "Registering...";
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-75');
+
+      // Generate a unique-looking referral code based on their email
+      const uniqueCode = btoa(email).substring(0, 8).replace(/=/g, '').toLowerCase();
+      
+      // Get the current URL of the website and append the tracking code
+      const baseUrl = window.location.origin + window.location.pathname;
+      const refLink = `${baseUrl}?ref=${uniqueCode}`;
+
+      // Insert the link into Step 10 so the user can copy it immediately
+      document.getElementById('ref-link-display').value = refLink;
+
+      // ⚠️ REMEMBER TO PASTE YOUR UPDATED GOOGLE SCRIPT URL HERE:
+      const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+      
+      try {
+        // Send the data (including the new refLink) to Google
+        await fetch(scriptURL, {
+          method: 'POST',
+          body: new URLSearchParams({ 'name': name, 'email': email, 'refLink': refLink })
+        });
+        
+        updateQuizProgress(10);
+      } catch (error) {
+        console.error('Error!', error.message);
+        // Even if connection fails, move to success screen so user isn't stuck
+        updateQuizProgress(10);
+      }
+    }
+
+    // --- Copy to Clipboard Functionality ---
+    function copyRefLink() {
+      const copyText = document.getElementById("ref-link-display");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+      
+      navigator.clipboard.writeText(copyText.value).then(() => {
+        const feedback = document.getElementById("copy-feedback");
+        feedback.classList.remove("hidden");
+        setTimeout(() => {
+          feedback.classList.add("hidden");
+        }, 3000);
+      });
     }
   </script>
 </body>
