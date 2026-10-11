@@ -155,7 +155,6 @@
                   </div>
                 </div>
 
-                <!-- Updated Hero Section: Multi-tier breakdown instead of 1-Swap -->
                 <div class="space-y-2">
                   <div class="p-3 rounded-2xl bg-terracotta-light border border-terracotta/30">
                     <div class="flex items-center justify-between text-xs font-bold text-terracotta mb-1">
@@ -234,20 +233,20 @@
             </div>
           </div>
 
-          <!-- Step 2 Updated: Labels simplified to just Male / Female -->
+          <!-- Changed inputs back to "radio" so Male/Female acts exclusively -->
           <div id="step-2" class="quiz-step hidden">
             <span class="text-xs font-bold uppercase tracking-wider text-matcha">Biological Baseline</span>
             <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">Select your biological baseline</h3>
             
             <div class="space-y-3">
-              <div class="checkbox-card">
-                <input type="checkbox" name="sex" id="s1" value="female" class="hidden" checked>
+              <div class="radio-card">
+                <input type="radio" name="sex" id="s1" value="female" class="hidden" checked>
                 <label for="s1" class="p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest block">
                   Female
                 </label>
               </div>
-              <div class="checkbox-card">
-                <input type="checkbox" name="sex" id="s2" value="male" class="hidden">
+              <div class="radio-card">
+                <input type="radio" name="sex" id="s2" value="male" class="hidden">
                 <label for="s2" class="p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest block">
                   Male
                 </label>
@@ -370,12 +369,10 @@
               </div>
               <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1">Your Gut Archetype: Rapid Fermenter</h3>
               
-              <!-- Updated text with dynamic ID for percentages -->
               <p class="text-xs sm:text-sm text-forest-muted mt-2.5 leading-relaxed">
                 Your responses indicate that <strong id="dyn-perc-1">82%</strong> of your afternoon swelling is non-caloric. Here is the breakdown of your meal triggers:
               </p>
 
-              <!-- Dynamic Plate Analysis Breakdown -->
               <div class="mt-4 space-y-2">
                 <div class="flex items-start gap-2.5 p-3 bg-white border border-terracotta/40 rounded-xl">
                   <span class="text-terracotta mt-0.5 text-lg">🔴</span>
@@ -415,7 +412,6 @@
                 </div>
                 <div class="flex items-center justify-between p-2 rounded-xl bg-matcha-light border border-matcha/30">
                   <span class="text-forest font-semibold">Day 14 (Stabilized Gut):</span>
-                  <!-- Dynamic percentage reduction -->
                   <span class="font-bold text-matcha">Flat Waistline (<span id="dyn-perc-2">-92%</span>)</span>
                 </div>
               </div>
@@ -502,7 +498,6 @@
       </div>
     </section>
 
-    <!-- Permanent Scientific Evidence Footer Section added here -->
     <section class="py-12 sm:py-16 bg-bone border-t border-eucalyptus/60">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
         <h4 class="font-editorial text-xl font-bold text-forest mb-4 flex items-center gap-2">
@@ -576,14 +571,12 @@
     function triggerAiAnalysis() {
       updateQuizProgress(6);
       
-      // Dynamic math randomization so numbers aren't always 82% and 92%
-      const randSwelling = Math.floor(Math.random() * (89 - 72 + 1) + 72); // 72 to 89
-      const randReduction = Math.floor(Math.random() * (98 - 85 + 1) + 85); // 85 to 98
+      const randSwelling = Math.floor(Math.random() * (89 - 72 + 1) + 72); 
+      const randReduction = Math.floor(Math.random() * (98 - 85 + 1) + 85); 
       
       document.getElementById('dyn-perc-1').innerText = randSwelling + '%';
       document.getElementById('dyn-perc-2').innerText = '-' + randReduction + '%';
 
-      // Dynamic Plate Analysis formatting based on inputs
       const isGarlic = document.getElementById('c_garlic').checked;
       const isDairy = document.getElementById('c_dairy').checked;
       const isSweetener = document.getElementById('c_sweetener').checked;
@@ -601,14 +594,12 @@
       } else if (worstTriggers.length === 1) {
           moderateTriggers.push("Processed Seed Oils");
       } else {
-          // If multiple checked, move the last checked item to "Moderate" to fill out the UI
           moderateTriggers.push(worstTriggers.pop()); 
       }
 
       document.getElementById('dyn-worst').innerText = worstTriggers.join(", ") + " (High Fructans/Osmotics)";
       document.getElementById('dyn-moderate').innerText = moderateTriggers.join(", ") + " (Gastric Delays)";
 
-      // Trigger the progress bar animations
       const calcProgress = document.getElementById('ai-calc-progress');
       setTimeout(() => { if (calcProgress) calcProgress.style.width = '45%'; }, 700);
       setTimeout(() => { if (calcProgress) calcProgress.style.width = '85%'; }, 1500);
