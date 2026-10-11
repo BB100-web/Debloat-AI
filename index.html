@@ -1,0 +1,1372 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeBloat AI — Food Scanner & Bloat Relief</title>
+  
+  <!-- Google Fonts: Editorial Serif (Fraunces) & Modern Sans (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bone: '#FBF9F5',
+            'bone-card': '#FFFFFF',
+            forest: '#1C2B20',
+            'forest-muted': '#3A4D40',
+            matcha: '#4A7C59',
+            'matcha-hover': '#3D684A',
+            'matcha-light': '#EBF3EE',
+            eucalyptus: '#D8E2DC',
+            terracotta: '#D9654B',
+            'terracotta-light': '#FDF1EE',
+            apricot: '#F4A261',
+            'apricot-light': '#FEF6EF'
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          },
+          boxShadow: {
+            'soft': '0 8px 30px rgba(28, 43, 32, 0.06)',
+            'card': '0 4px 20px rgba(28, 43, 32, 0.04)',
+            'float': '0 20px 40px rgba(28, 43, 32, 0.12)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FBF9F5;
+      color: #1C2B20;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-editorial {
+      font-family: 'Fraunces', serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #FBF9F5;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D8E2DC;
+      border-radius: 999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #4A7C59;
+    }
+    @keyframes pulse-subtle {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.03); opacity: 0.95; }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 3s ease-in-out infinite;
+    }
+    .radio-card input:checked + label {
+      border-color: #4A7C59;
+      background-color: #EBF3EE;
+      box-shadow: 0 0 0 1.5px #4A7C59;
+    }
+    .checkbox-card input:checked + label {
+      border-color: #4A7C59;
+      background-color: #EBF3EE;
+      box-shadow: 0 0 0 1.5px #4A7C59;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-matcha-light selection:text-forest">
+
+  <!-- Top Notification Pill -->
+  <div class="bg-forest text-bone text-xs py-2 px-4 text-center font-medium tracking-wide flex items-center justify-center gap-2">
+    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+    <span>Accepting 500 early testers for US, UK & Global Closed Beta • Zero calorie counting</span>
+    <a href="#quiz" class="underline ml-1 font-semibold hover:text-eucalyptus transition-colors">Claim Spot &rarr;</a>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="sticky top-0 z-40 bg-bone/90 backdrop-blur-md border-b border-eucalyptus/60 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-forest text-bone flex items-center justify-center text-lg shadow-sm group-hover:bg-matcha transition-colors">
+          🌿
+        </div>
+        <div>
+          <span class="font-editorial text-2xl font-bold tracking-tight text-forest block leading-none">DeBloat</span>
+          <span class="text-[10px] tracking-wider uppercase font-semibold text-matcha block mt-0.5">Gut Health AI</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-3 sm:gap-6">
+        <a href="#how-it-works" class="hidden md:inline-block text-sm font-medium text-forest-muted hover:text-forest transition-colors">How It Works</a>
+        <a href="#science" class="hidden md:inline-block text-sm font-medium text-forest-muted hover:text-forest transition-colors">Clinical Research</a>
+        <button onclick="toggleAdminModal()" class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-eucalyptus text-forest-muted hover:text-forest hover:bg-bone transition-all flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <span class="hidden sm:inline">Admin</span> Dashboard
+        </button>
+        <a href="#quiz" class="inline-flex items-center justify-center text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full bg-forest text-bone hover:bg-matcha hover:shadow-soft transition-all active:scale-95">
+          Take Gut Quiz
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="pt-10 sm:pt-16 pb-16 sm:pb-24 px-4 sm:px-6 max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left: Copy & Value Proposition -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-matcha-light text-matcha text-xs font-semibold border border-matcha/20">
+            <span>✨</span> No calorie counting. Zero food guilt. Just digestion ease.
+          </div>
+
+          <h1 class="font-editorial text-4xl sm:text-5xl lg:text-6xl text-forest font-bold tracking-tight leading-[1.12]">
+            Stop guessing why your stomach swells by <span class="italic text-matcha font-normal">3:00 PM</span>.
+          </h1>
+
+          <p class="text-base sm:text-lg text-forest-muted leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            Snap your lunch in 3 seconds. DeBloat calculates your real-time <strong>Bloat Risk Index (0–100)</strong>, isolates high-osmotic fructans, and reveals the <strong>1-ingredient swap</strong> to keep your stomach flat and comfortable all day.
+          </p>
+
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <a href="#quiz" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-matcha text-white font-semibold text-base shadow-soft hover:bg-matcha-hover hover:shadow-lg transition-all active:scale-98">
+              <span>Start 60-Second Bloat Quiz</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+            <a href="#how-it-works" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-4 rounded-full border border-eucalyptus text-forest font-medium text-sm hover:bg-white transition-colors">
+              See Live Plate Deconstruction
+            </a>
+          </div>
+
+          <!-- Authentic Trust Signals (Zero Fake Counters) -->
+          <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-y-3 gap-x-6 text-xs text-forest-muted">
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-matcha" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Monash Low-FODMAP Protocol</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-matcha" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>Zero Artificial Additives / Gums Tracker</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-matcha" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              <span>100% Free Pre-Launch Access</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Product Simulator (Interactive Plate Scan) -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="w-full max-w-[340px] sm:max-w-[360px] bg-forest p-3.5 sm:p-4 rounded-[40px] shadow-float border-4 border-forest text-forest">
+            <!-- Simulated iPhone Frame -->
+            <div class="bg-bone rounded-[32px] overflow-hidden border border-eucalyptus flex flex-col relative">
+              
+              <!-- Screen Header / Dynamic Island Mock -->
+              <div class="bg-bone px-5 pt-3 pb-2 flex items-center justify-between border-b border-eucalyptus/60">
+                <span class="text-[11px] font-semibold text-forest">9:41</span>
+                <div class="w-16 h-3.5 bg-forest rounded-full mx-auto"></div>
+                <div class="flex items-center gap-1 text-[10px] text-forest">
+                  <span>5G</span>
+                  <div class="w-3.5 h-2 border border-forest rounded-sm p-[1px]"><div class="w-full h-full bg-forest"></div></div>
+                </div>
+              </div>
+
+              <!-- Simulator Interactive State Switcher -->
+              <div class="p-3 bg-white border-b border-eucalyptus/40">
+                <div class="flex items-center justify-between text-xs font-semibold mb-2">
+                  <span class="text-forest">Interactive Scanner Demo:</span>
+                  <span id="demo-indicator" class="text-terracotta text-[10px] uppercase tracking-wider font-bold">Unswapped Plate</span>
+                </div>
+                <div class="grid grid-cols-2 p-1 bg-bone rounded-xl gap-1 text-xs">
+                  <button id="btn-demo-original" onclick="setDemoState('original')" class="py-1.5 px-2 rounded-lg font-semibold bg-white text-forest shadow-sm transition-all text-center">
+                    Original Bowl
+                  </button>
+                  <button id="btn-demo-swapped" onclick="setDemoState('swapped')" class="py-1.5 px-2 rounded-lg font-medium text-forest-muted hover:text-forest transition-all text-center">
+                    With 1-Swap ✨
+                  </button>
+                </div>
+              </div>
+
+              <!-- Phone Camera Scan UI -->
+              <div class="p-4 space-y-3.5 bg-bone">
+                <!-- Meal Header Card -->
+                <div class="relative rounded-2xl overflow-hidden bg-white p-3 border border-eucalyptus/70 shadow-sm">
+                  <div class="flex items-start justify-between">
+                    <div>
+                      <span class="text-[10px] uppercase font-bold tracking-wider text-matcha">Detected Meal</span>
+                      <h4 class="font-editorial text-base font-bold text-forest" id="demo-meal-name">Harvest Grain & Kale Bowl</h4>
+                    </div>
+                    <span id="demo-score-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-terracotta-light text-terracotta border border-terracotta/20">
+                      BRI 78/100
+                    </span>
+                  </div>
+                  
+                  <!-- Plate Representation -->
+                  <div class="mt-2.5 p-2 bg-bone rounded-xl flex items-center gap-3">
+                    <div class="text-3xl" id="demo-meal-icon">🥗</div>
+                    <div class="text-xs text-forest-muted" id="demo-meal-desc">
+                      Roasted chicken, quinoa, raw red onion, kale & raw garlic tahini dressing.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- The Trigger Culprit / 1-Ingredient Swap Box -->
+                <div id="demo-swap-box" class="p-3 rounded-2xl bg-terracotta-light border border-terracotta/30 transition-all">
+                  <div class="flex items-center justify-between text-xs font-bold text-terracotta mb-1">
+                    <span class="flex items-center gap-1">⚠️ High Fermentation Culprit</span>
+                    <span>98% Distension</span>
+                  </div>
+                  <p class="text-xs text-forest leading-snug">
+                    <strong class="text-terracotta">Raw Garlic & Onion:</strong> High-osmotic fructans trigger intestinal fermentation within 90 minutes.
+                  </p>
+                  <div class="mt-2 pt-2 border-t border-terracotta/20 flex items-center justify-between text-xs">
+                    <span class="font-semibold text-forest">Recommended 1-Swap:</span>
+                    <span class="text-matcha font-bold">Lemon + Extra Virgin Olive Oil &rarr;</span>
+                  </div>
+                </div>
+
+                <!-- 6-Hour Distension Forecast Bar -->
+                <div class="p-3 rounded-2xl bg-white border border-eucalyptus/70 shadow-sm">
+                  <div class="flex items-center justify-between text-[11px] font-semibold text-forest mb-1.5">
+                    <span>3-Hour Bloat Forecast:</span>
+                    <span id="demo-forecast-label" class="text-terracotta font-bold">+2.8 inches distension</span>
+                  </div>
+                  <div class="w-full bg-bone h-2 rounded-full overflow-hidden">
+                    <div id="demo-forecast-bar" class="h-full bg-terracotta transition-all duration-500 rounded-full" style="width: 82%;"></div>
+                  </div>
+                  <div class="flex justify-between text-[9px] text-forest-muted mt-1">
+                    <span>12:30 PM (Eaten)</span>
+                    <span>2:00 PM (Peak Gas)</span>
+                    <span>5:00 PM (Cleared)</span>
+                  </div>
+                </div>
+
+                <!-- Action Button Inside Phone -->
+                <a href="#quiz" class="block w-full text-center py-2.5 rounded-xl bg-forest text-bone font-semibold text-xs hover:bg-matcha transition-colors">
+                  Check My Own Plate &rarr;
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- The Root Cause Paradigm: Why Calorie Counters Fail Gut Health -->
+    <section id="how-it-works" class="py-16 bg-white border-y border-eucalyptus/60">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-bold uppercase tracking-wider text-matcha">The Fundamental Problem</span>
+          <h2 class="font-editorial text-3xl sm:text-4xl font-bold text-forest mt-1.5">
+            Why calorie tracking doesn't fix a swollen stomach.
+          </h2>
+          <p class="text-sm sm:text-base text-forest-muted mt-3">
+            Calorie apps like Cal AI or MyFitnessPal treat food as simple arithmetic. But bloating is not a calorie problem—it is a <em>chemical and osmotic fermentation reaction</em>.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <!-- Traditional App Card -->
+          <div class="p-6 sm:p-8 rounded-3xl bg-bone border border-eucalyptus/80 relative">
+            <div class="w-10 h-10 rounded-2xl bg-terracotta-light text-terracotta flex items-center justify-center font-bold text-lg mb-4">
+              ✕
+            </div>
+            <h3 class="font-editorial text-xl font-bold text-forest mb-2">Traditional Calorie Trackers</h3>
+            <p class="text-xs text-forest-muted mb-4">Focuses strictly on caloric deficit and macronutrient grams.</p>
+            <ul class="space-y-3 text-xs sm:text-sm text-forest-muted">
+              <li class="flex items-start gap-2.5">
+                <span class="text-terracotta font-bold mt-0.5">✕</span>
+                <span>Labels a 450-kcal raw cauliflower & garlic bowl as "healthy" while ignoring that it swells your waistline by 3 inches.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-terracotta font-bold mt-0.5">✕</span>
+                <span>Induces daily calorie anxiety, food weighing obsession, and restrictive guilt.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-terracotta font-bold mt-0.5">✕</span>
+                <span>Requires 5+ minutes of manual text search per meal (80% drop-off by day 3).</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- DeBloat Card -->
+          <div class="p-6 sm:p-8 rounded-3xl bg-matcha-light border-2 border-matcha/40 relative shadow-soft">
+            <div class="absolute -top-3 right-6 bg-forest text-bone text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full">
+              The DeBloat Way
+            </div>
+            <div class="w-10 h-10 rounded-2xl bg-matcha text-white flex items-center justify-center font-bold text-lg mb-4">
+              ✓
+            </div>
+            <h3 class="font-editorial text-xl font-bold text-forest mb-2">DeBloat AI Gut Scanner</h3>
+            <p class="text-xs text-matcha font-semibold mb-4">Focuses on abdominal distension, osmotic balance & digestive ease.</p>
+            <ul class="space-y-3 text-xs sm:text-sm text-forest">
+              <li class="flex items-start gap-2.5">
+                <span class="text-matcha font-bold mt-0.5">✓</span>
+                <span><strong>Instant Camera AI:</strong> Point camera at your plate for a composite 0–100 Bloat Risk Index in under 3 seconds.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-matcha font-bold mt-0.5">✓</span>
+                <span><strong>The 1-Ingredient Swap:</strong> You don't need to quit eating what you love. Just swap the single trigger compound your gut cannot break down.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-matcha font-bold mt-0.5">✓</span>
+                <span><strong>60-Second SOS Relief:</strong> Vagus-nerve breathing pacer & postural relief protocol if triggers were already eaten.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The 4 Core Diagnostic Pillars -->
+    <section class="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-wider text-matcha">Core Capabilities</span>
+        <h2 class="font-editorial text-3xl sm:text-4xl font-bold text-forest mt-1.5">
+          Engineered for comfortable clothes all day.
+        </h2>
+        <p class="text-sm sm:text-base text-forest-muted mt-2">
+          Grounded in clinical gastroenterology research and the Monash University low-FODMAP dietary framework.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Feature 1 -->
+        <div class="p-6 rounded-3xl bg-white border border-eucalyptus shadow-card hover:shadow-soft transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-bone flex items-center justify-center text-2xl mb-4 border border-eucalyptus/60">
+            📸
+          </div>
+          <h4 class="font-editorial text-lg font-bold text-forest mb-2">Instant Plate Deconstruction</h4>
+          <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+            Identifies hidden alliums, prebiotic gums, sugar alcohols, and emulsifiers that restaurant menus never list on the bill.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="p-6 rounded-3xl bg-white border border-eucalyptus shadow-card hover:shadow-soft transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-bone flex items-center justify-center text-2xl mb-4 border border-eucalyptus/60">
+            📊
+          </div>
+          <h4 class="font-editorial text-lg font-bold text-forest mb-2">Bloat Risk Index (0–100)</h4>
+          <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+            Synthesizes rapid fermentation potential, sodium-potassium fluid pooling, and mechanical gas distension factors into one simple score.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="p-6 rounded-3xl bg-white border border-eucalyptus shadow-card hover:shadow-soft transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-bone flex items-center justify-center text-2xl mb-4 border border-eucalyptus/60">
+            🔄
+          </div>
+          <h4 class="font-editorial text-lg font-bold text-forest mb-2">The 1-Ingredient Swap</h4>
+          <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+            Keep 90% of your meal intact. We isolate the single offending compound and give you an immediate, delicious replacement.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="p-6 rounded-3xl bg-white border border-eucalyptus shadow-card hover:shadow-soft transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-bone flex items-center justify-center text-2xl mb-4 border border-eucalyptus/60">
+            🫁
+          </div>
+          <h4 class="font-editorial text-lg font-bold text-forest mb-2">60-Second SOS Relief</h4>
+          <p class="text-xs sm:text-sm text-forest-muted leading-relaxed">
+            Already ate a trigger food? Follow our interactive vagus-nerve breath pacer and 3 acupressure stretches to release trapped pressure.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Onboarding Quiz Anchor -->
+    <section id="quiz" class="py-16 sm:py-24 bg-white border-t border-eucalyptus/60">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        
+        <!-- Quiz Master Container -->
+        <div class="bg-bone border-2 border-eucalyptus/80 rounded-[32px] sm:rounded-[40px] p-6 sm:p-10 shadow-soft relative overflow-hidden">
+          
+          <!-- Top Quiz Header & Progress Bar -->
+          <div class="mb-8">
+            <div class="flex items-center justify-between text-xs font-semibold text-forest-muted mb-2">
+              <span id="quiz-step-indicator">Step 1 of 10</span>
+              <span id="quiz-progress-percent" class="text-matcha font-bold">10%</span>
+            </div>
+            <div class="w-full bg-eucalyptus/60 h-2 rounded-full overflow-hidden">
+              <div id="quiz-progress-bar" class="bg-matcha h-full transition-all duration-300 rounded-full" style="width: 10%;"></div>
+            </div>
+          </div>
+
+          <!-- QUIZ STEP 1: Primary Goal -->
+          <div id="step-1" class="quiz-step">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Question 1</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">
+              What is your #1 digestive goal?
+            </h3>
+            <p class="text-xs sm:text-sm text-forest-muted mb-6">Select the outcome that would make the biggest difference in your daily life.</p>
+            
+            <div class="space-y-3">
+              <div class="radio-card">
+                <input type="radio" name="goal" id="g1" value="flat_all_day" class="hidden" checked>
+                <label for="g1" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <span>Keep a flat, comfortable stomach from morning to night</span>
+                  <span class="text-lg">🌿</span>
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="goal" id="g2" value="stop_unbuttoning" class="hidden">
+                <label for="g2" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <span>Stop having to unbutton my trousers or jeans after lunch</span>
+                  <span class="text-lg">👖</span>
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="goal" id="g3" value="identify_culprits" class="hidden">
+                <label for="g3" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <span>Pinpoint exactly which "healthy" foods trigger my flares</span>
+                  <span class="text-lg">🔍</span>
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="goal" id="g4" value="relieve_pressure" class="hidden">
+                <label for="g4" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <span>Relieve painful trapped gas, fullness, and afternoon fatigue</span>
+                  <span class="text-lg">💨</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-end">
+              <button onclick="nextQuizStep(2)" class="px-7 py-3 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha transition-colors">
+                Continue &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- QUIZ STEP 2: Biological Baseline -->
+          <div id="step-2" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Question 2</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">
+              Select your biological baseline
+            </h3>
+            <p class="text-xs sm:text-sm text-forest-muted mb-6">Crucial for modeling hormone-driven gut motility and osmotic fluid retention.</p>
+            
+            <div class="space-y-3">
+              <div class="radio-card">
+                <input type="radio" name="sex" id="s1" value="female" class="hidden" checked>
+                <label for="s1" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <span>Female (Includes progesterone & cycle motility modeling)</span>
+                  <span class="text-lg">🌸</span>
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="sex" id="s2" value="male" class="hidden">
+                <label for="s2" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <span>Male (Standard baseline motility)</span>
+                  <span class="text-lg">⚡</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button onclick="prevQuizStep(1)" class="text-xs font-semibold text-forest-muted hover:text-forest">← Back</button>
+              <button onclick="nextQuizStep(3)" class="px-7 py-3 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha transition-colors">
+                Continue &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- QUIZ STEP 3: Flare Timing -->
+          <div id="step-3" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Question 3</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">
+              When do you notice your bloating the most?
+            </h3>
+            <p class="text-xs sm:text-sm text-forest-muted mb-6">Helps identify where fermentation occurs along your digestive tract.</p>
+            
+            <div class="space-y-3">
+              <div class="radio-card">
+                <input type="radio" name="timing" id="t1" value="30_60_lunch" class="hidden" checked>
+                <label for="t1" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest">
+                  30 to 90 minutes after eating lunch (Rapid mid-day flare)
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="timing" id="t2" value="evening_food_baby" class="hidden">
+                <label for="t2" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest">
+                  In the evening (Flat morning stomach, but "food baby" by 8 PM)
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="timing" id="t3" value="morning" class="hidden">
+                <label for="t3" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest">
+                  First thing in the morning upon waking (Fluid retention / delayed transit)
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="timing" id="t4" value="unpredictable" class="hidden">
+                <label for="t4" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest">
+                  Unpredictable — happens at random times without an obvious pattern
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button onclick="prevQuizStep(2)" class="text-xs font-semibold text-forest-muted hover:text-forest">← Back</button>
+              <button onclick="nextQuizStep(4)" class="px-7 py-3 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha transition-colors">
+                Continue &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- QUIZ STEP 4: Physical Severity -->
+          <div id="step-4" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Question 4</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">
+              How much does your waistline expand during a flare?
+            </h3>
+            <p class="text-xs sm:text-sm text-forest-muted mb-6">We measure mechanical distension to estimate small-bowel gas volume.</p>
+            
+            <div class="space-y-3">
+              <div class="radio-card">
+                <input type="radio" name="severity" id="sev1" value="mild" class="hidden">
+                <label for="sev1" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest">
+                  Barely visible, but feels uncomfortably tight and tender
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="severity" id="sev2" value="moderate" class="hidden" checked>
+                <label for="sev2" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest">
+                  1 to 2 inches (Clothes and waistbands cut into stomach)
+                </label>
+              </div>
+              <div class="radio-card">
+                <input type="radio" name="severity" id="sev3" value="severe" class="hidden">
+                <label for="sev3" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest">
+                  3+ inches (Noticeable distension / feel 4 months pregnant)
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button onclick="prevQuizStep(3)" class="text-xs font-semibold text-forest-muted hover:text-forest">← Back</button>
+              <button onclick="nextQuizStep(5)" class="px-7 py-3 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha transition-colors">
+                Continue &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- QUIZ STEP 5: Suspected Culprit Ingredients (Multi-Select) -->
+          <div id="step-5" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Question 5</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">
+              Which foods do you suspect trigger your bloat?
+            </h3>
+            <p class="text-xs sm:text-sm text-forest-muted mb-6">Select all that apply. (Don't worry if you aren't sure).</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div class="checkbox-card">
+                <input type="checkbox" id="c_garlic" value="Garlic & Onions" class="hidden" checked>
+                <label for="c_garlic" class="block p-3 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-xs font-semibold text-forest flex items-center justify-between">
+                  <span>Garlic & Onions (Fructans)</span>
+                  <span>🧄</span>
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" id="c_dairy" value="Dairy & Lattes" class="hidden" checked>
+                <label for="c_dairy" class="block p-3 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-xs font-semibold text-forest flex items-center justify-between">
+                  <span>Dairy, Milk & Creamers</span>
+                  <span>🥛</span>
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" id="c_raw" value="Raw Salads / Cruciferous" class="hidden">
+                <label for="c_raw" class="block p-3 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-xs font-semibold text-forest flex items-center justify-between">
+                  <span>Raw salads, cauliflower & kale</span>
+                  <span>🥦</span>
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" id="c_sweetener" value="Sugar Alcohols / Zero-Sugar" class="hidden">
+                <label for="c_sweetener" class="block p-3 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-xs font-semibold text-forest flex items-center justify-between">
+                  <span>Zero-Sugar foods (Polyols)</span>
+                  <span>🍬</span>
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" id="c_bread" value="Gluten & Fresh Breads" class="hidden">
+                <label for="c_bread" class="block p-3 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-xs font-semibold text-forest flex items-center justify-between">
+                  <span>Gluten, pasta & artisan breads</span>
+                  <span>🥖</span>
+                </label>
+              </div>
+              <div class="checkbox-card">
+                <input type="checkbox" id="c_unknown" value="I Have No Idea" class="hidden">
+                <label for="c_unknown" class="block p-3 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-xs font-semibold text-forest flex items-center justify-between">
+                  <span>No idea — everything triggers it</span>
+                  <span>❓</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button onclick="prevQuizStep(4)" class="text-xs font-semibold text-forest-muted hover:text-forest">← Back</button>
+              <button onclick="triggerAiAnalysis()" class="px-7 py-3 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha transition-colors">
+                Analyze My Gut Profile &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- QUIZ STEP 6: Simulated AI Analysis Animation Screen -->
+          <div id="step-6" class="quiz-step hidden py-8 text-center space-y-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-matcha-light border-2 border-matcha flex items-center justify-center text-3xl animate-pulse">
+              🧬
+            </div>
+            <div>
+              <h3 class="font-editorial text-2xl font-bold text-forest">Synthesizing Gut Fermentation Archetype...</h3>
+              <p class="text-xs text-forest-muted mt-1" id="ai-loading-text">Cross-referencing 4,200+ gastrointestinal food compounds...</p>
+            </div>
+
+            <!-- Animated Bar -->
+            <div class="max-w-md mx-auto bg-eucalyptus/60 h-3 rounded-full overflow-hidden p-0.5">
+              <div id="ai-calc-progress" class="bg-matcha h-full rounded-full transition-all duration-300" style="width: 15%;"></div>
+            </div>
+
+            <div class="text-[11px] text-forest-muted font-mono" id="ai-calc-status">
+              Loading Monash FODMAP Osmotic Database...
+            </div>
+          </div>
+
+          <!-- QUIZ STEP 7: The Diagnostic Reveal & Personalized Archetype -->
+          <div id="step-7" class="quiz-step hidden">
+            <div class="p-4 rounded-2xl bg-matcha-light border border-matcha/30 mb-6">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-matcha">Diagnosis Calculated</span>
+                <span class="text-xs font-bold text-forest bg-white px-2.5 py-0.5 rounded-full border border-matcha/20">High Sensitivity</span>
+              </div>
+              <h3 class="font-editorial text-2xl font-bold text-forest mt-1">Your Gut Archetype: Rapid Fermenter</h3>
+              <p class="text-xs text-forest-muted mt-2 leading-relaxed">
+                Your responses indicate that <strong>82% of your afternoon swelling is non-caloric</strong>. It is driven by high-osmotic fructans and emulsifiers pulling excess water into the small intestine, triggering sudden gas expansion.
+              </p>
+            </div>
+
+            <!-- Projected Transformation Curve -->
+            <div class="p-4 rounded-2xl bg-white border border-eucalyptus mb-6">
+              <h4 class="text-xs font-bold text-forest uppercase tracking-wider mb-2">Projected 14-Day Transformation Curve:</h4>
+              <div class="space-y-2 text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="text-forest-muted">Day 1 (Current Baseline):</span>
+                  <span class="font-bold text-terracotta">+2.8" Afternoon Distension</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-forest-muted">Day 7 (After 3 Ingredient Swaps):</span>
+                  <span class="font-bold text-apricot">+0.8" Mild Tightness (-71%)</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-forest-muted">Day 14 (Stabilized Gut Protocol):</span>
+                  <span class="font-bold text-matcha">Flat & Comfortable Waistline (-92%)</span>
+                </div>
+          <!-- QUIZ STEP 8: Preferred Monthly Subscription Pricing (Multi-Currency Support) -->
+          <div id="step-8" class="quiz-step hidden">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-matcha">Pre-Launch Calibration</span>
+              <!-- Currency Toggle Bar -->
+              <div class="flex items-center bg-white border border-eucalyptus rounded-xl p-0.5 text-[11px] font-semibold">
+                <button type="button" onclick="setCurrency('USD', '$')" id="curr-btn-USD" class="px-2 py-0.5 rounded-lg bg-forest text-bone transition-all">$ USD</button>
+                <button type="button" onclick="setCurrency('GBP', '£')" id="curr-btn-GBP" class="px-2 py-0.5 rounded-lg text-forest-muted hover:text-forest transition-all">£ GBP</button>
+                <button type="button" onclick="setCurrency('EUR', '€')" id="curr-btn-EUR" class="px-2 py-0.5 rounded-lg text-forest-muted hover:text-forest transition-all">€ EUR</button>
+                <button type="button" onclick="setCurrency('CAD', '$')" id="curr-btn-CAD" class="px-2 py-0.5 rounded-lg text-forest-muted hover:text-forest transition-all">$ CAD</button>
+              </div>
+            </div>
+
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">
+              Select your preferred early access pricing
+            </h3>
+            <p class="text-xs sm:text-sm text-forest-muted mb-6">Help us calibrate our official launch pricing. As an early tester, your selected rate will be locked in permanently.</p>
+            
+            <div class="space-y-3">
+              <div class="radio-card">
+                <input type="radio" name="pricing" id="p1" value="5" class="hidden">
+                <label for="p1" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <div>
+                    <div class="font-bold text-forest"><span class="price-val-1">$5</span> / month <span class="text-xs font-normal text-forest-muted">(Basic Camera Scanner)</span></div>
+                    <div class="text-xs text-forest-muted font-normal mt-0.5">Meal camera scanning & Bloat Risk Index.</div>
+                  </div>
+                  <span class="text-sm font-bold text-matcha">Budget</span>
+                </label>
+              </div>
+
+              <div class="radio-card">
+                <input type="radio" name="pricing" id="p2" value="10" class="hidden" checked>
+                <label for="p2" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <div>
+                    <div class="font-bold text-forest"><span class="price-val-2">$10</span> / month <span class="text-xs font-bold text-matcha">(Recommended • Complete Suite)</span></div>
+                    <div class="text-xs text-forest-muted font-normal mt-0.5">Camera scanner, 1-Ingredient Swaps & 60-Sec SOS relief exercises.</div>
+                  </div>
+                  <span class="text-xs font-bold bg-matcha text-white px-2 py-0.5 rounded-full">Popular</span>
+                </label>
+              </div>
+
+              <div class="radio-card">
+                <input type="radio" name="pricing" id="p3" value="15" class="hidden">
+                <label for="p3" class="block p-4 rounded-2xl bg-white border border-eucalyptus cursor-pointer hover:border-matcha transition-all text-sm font-semibold text-forest flex items-center justify-between">
+                  <div>
+                    <div class="font-bold text-forest"><span class="price-val-3">$15</span> / month <span class="text-xs font-normal text-forest-muted">(VIP Gut Protocol)</span></div>
+                    <div class="text-xs text-forest-muted font-normal mt-0.5">Includes personal sensitivity fingerprinting and cycle motility sync.</div>
+                  </div>
+                  <span class="text-sm font-bold text-forest">VIP</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between items-center">
+              <button onclick="prevQuizStep(7)" class="text-xs font-semibold text-forest-muted hover:text-forest">← Back</button>
+              <button onclick="nextQuizStep(9)" class="px-7 py-3 rounded-full bg-forest text-bone font-semibold text-sm hover:bg-matcha transition-colors">
+                Claim Priority Spot &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- QUIZ STEP 9: Final Email Capture Form -->
+          <div id="step-9" class="quiz-step hidden">
+            <span class="text-xs font-bold uppercase tracking-wider text-matcha">Final Step</span>
+            <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-forest mt-1 mb-2">
+              Where should we send your full Gut Trigger Report?
+            </h3>
+            <p class="text-xs sm:text-sm text-forest-muted mb-6">Lock in your early access spot and save your personalized diagnostic profile.</p>
+            
+            <form id="lead-capture-form" onsubmit="handleFormSubmission(event)" class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-forest uppercase tracking-wider mb-1">Your Name</label>
+                <input type="text" id="lead-name" required placeholder="e.g. Sarah Jenkins" class="w-full px-4 py-3.5 rounded-2xl border border-eucalyptus focus:border-matcha focus:ring-1 focus:ring-matcha bg-white text-forest text-sm outline-none transition-all">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-forest uppercase tracking-wider mb-1">Email Address</label>
+                <input type="email" id="lead-email" required placeholder="sarah@example.com" class="w-full px-4 py-3.5 rounded-2xl border border-eucalyptus focus:border-matcha focus:ring-1 focus:ring-matcha bg-white text-forest text-sm outline-none transition-all">
+              </div>
+
+              <div class="pt-2">
+                <button type="submit" id="btn-submit-lead" class="w-full py-4 rounded-full bg-matcha hover:bg-matcha-hover text-white font-semibold text-base shadow-soft transition-all active:scale-98 flex items-center justify-center gap-2">
+                  <span>Claim Early Access & Lock In Rate</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              </div>
+
+              <!-- Meta Pixel Event Status Pill -->
+              <p class="text-[11px] text-center text-forest-muted pt-2 flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-matcha" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Zero spam. Unsubscribe anytime. No credit card required today.</span>
+              </p>
+            </form>
+          </div>
+
+          <!-- QUIZ STEP 10: Clean Success State & Referral Prompt -->
+          <div id="step-10" class="quiz-step hidden py-4 text-center space-y-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-matcha-light text-matcha flex items-center justify-center text-3xl">
+              🎉
+            </div>
+
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-matcha">Spot Secured!</span>
+              <h3 class="font-editorial text-3xl font-bold text-forest mt-1">You're on the early access list.</h3>
+              <p class="text-xs sm:text-sm text-forest-muted mt-2 max-w-md mx-auto">
+                We've reserved your early access spot. Your locked-in rate has been logged in our system.
+              </p>
+            </div>
+
+            <!-- Queue Card -->
+            <div class="max-w-xs mx-auto p-4 rounded-2xl bg-white border border-eucalyptus shadow-sm">
+              <span class="text-[10px] uppercase font-bold text-forest-muted tracking-wider">Your Position in Queue</span>
+              <div class="text-3xl font-bold text-matcha font-editorial my-1" id="success-queue-pos">#418</div>
+              <span class="text-[11px] text-forest-muted">Beta Cohort 1 • Invites dispatched in batches</span>
+            </div>
+
+            <!-- Referral Share Box -->
+            <div class="max-w-md mx-auto p-4 rounded-2xl bg-bone border border-eucalyptus text-left space-y-2">
+              <div class="flex items-center justify-between text-xs font-bold text-forest">
+                <span>Want to jump 50 spots ahead?</span>
+                <span class="text-matcha">Share with a friend 🌿</span>
+              </div>
+              <p class="text-[11px] text-forest-muted">Friends who suffer from post-lunch distension will thank you.</p>
+              <div class="flex items-center gap-2">
+                <input type="text" id="referral-url" readonly value="https://debloat.app/?ref=beta418" class="text-xs bg-white border border-eucalyptus rounded-xl px-3 py-2 flex-grow text-forest font-mono">
+                <button onclick="copyReferralLink()" class="px-3.5 py-2 rounded-xl bg-forest text-bone text-xs font-semibold hover:bg-matcha transition-colors">
+                  Copy
+                </button>
+              </div>
+            </div>
+
+            <!-- Debug / Meta Pixel Lead Fired Notice -->
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+              <span>Meta Conversions API <code>Lead</code> event dispatched successfully</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Authentic Clinical Grounding & Scientific Credibility -->
+    <section id="science" class="py-16 sm:py-20 max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-wider text-matcha">Peer-Reviewed Gastroenterology</span>
+        <h2 class="font-editorial text-3xl sm:text-4xl font-bold text-forest mt-1.5">
+          Grounded in clinical physiology, not guesswork.
+        </h2>
+        <p class="text-sm text-forest-muted mt-2">
+          Backed by Monash University FODMAP protocols, MRI small-bowel fluid dynamics, and peer-reviewed studies on Abdomino-Phrenic Dyssynergia (APD).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Pillar 1: Fructan Chemistry -->
+        <div class="p-6 rounded-3xl bg-white border border-eucalyptus shadow-sm">
+          <div class="w-10 h-10 rounded-2xl bg-matcha-light text-matcha flex items-center justify-center font-bold text-lg mb-3">
+            ⚗️
+          </div>
+          <h4 class="font-editorial text-lg font-bold text-forest mb-2">Fructan Cleavage Deficiency</h4>
+          <p class="text-xs text-forest-muted leading-relaxed">
+            Humans lack the <span class="text-forest font-semibold">beta-fructofuranosidase</span> enzyme needed to cleave fructan polymer bonds in raw garlic, onions, and wheat. Undigested fructans pass into the colon where bacteria ferment them into rapid hydrogen/methane gas within 60–120 minutes.
+          </p>
+          <div class="mt-3 pt-3 border-t border-eucalyptus/60 text-[11px] text-matcha font-medium">
+            <strong>Why Swaps Work:</strong> Fructans are water-soluble, not fat-soluble. Garlic-infused olive oil extracts 100% of the aromatic flavor compounds with 0% fructan carbohydrates.
+          </div>
+        </div>
+
+        <!-- Pillar 2: Osmotic Fluid Dynamics -->
+        <div class="p-6 rounded-3xl bg-white border border-eucalyptus shadow-sm">
+          <div class="w-10 h-10 rounded-2xl bg-matcha-light text-matcha flex items-center justify-center font-bold text-lg mb-3">
+            💧
+          </div>
+          <h4 class="font-editorial text-lg font-bold text-forest mb-2">Small-Bowel Osmotic Shift</h4>
+          <p class="text-xs text-forest-muted leading-relaxed">
+            MRI imaging studies (Spiller et al.) demonstrate that high-FODMAP and high-sodium meals act as osmotic sponges, drawing up to <span class="text-forest font-semibold">400ml of systemic fluid</span> into the small intestine hours before fermentation occurs, causing visible distension.
+          </p>
+          <div class="mt-3 pt-3 border-t border-eucalyptus/60 text-[11px] text-matcha font-medium">
+            <strong>Why Swaps Work:</strong> Balancing potassium-to-sodium ratios and eliminating polyols prevents the osmotic fluid pooling that causes mid-afternoon waistline swelling.
+          </div>
+        </div>
+
+        <!-- Pillar 3: Abdomino-Phrenic Dyssynergia -->
+        <div class="p-6 rounded-3xl bg-white border border-eucalyptus shadow-sm">
+          <div class="w-10 h-10 rounded-2xl bg-matcha-light text-matcha flex items-center justify-center font-bold text-lg mb-3">
+            🫁
+          </div>
+          <h4 class="font-editorial text-lg font-bold text-forest mb-2">Abdomino-Phrenic Dyssynergia (APD)</h4>
+          <p class="text-xs text-forest-muted leading-relaxed">
+            Gastroenterological research (Azpiroz et al.) shows that 75%+ of visible post-meal belly swelling is caused by a somato-motor reflex where the <span class="text-forest font-semibold">diaphragm contracts downward</span> while the anterior abdominal wall involuntarily relaxes.
+          </p>
+          <div class="mt-3 pt-3 border-t border-eucalyptus/60 text-[11px] text-matcha font-medium">
+            <strong>Why SOS Works:</strong> Our 60-second diaphragmatic vagus pacer activates parasympathetic tone, lifting the crura of the diaphragm to release mechanical abdominal protrusion.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-forest text-bone py-12 border-t border-forest-muted">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-eucalyptus">
+      <div class="flex items-center gap-2">
+        <span class="text-lg">🌿</span>
+        <span class="font-editorial text-base text-bone font-bold">DeBloat AI</span>
+        <span class="text-[11px] ml-2 text-eucalyptus/60">© 2026 DeBloat Health Technologies. All rights reserved.</span>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="#how-it-works" class="hover:text-bone transition-colors">How It Works</a>
+        <a href="#science" class="hover:text-bone transition-colors">Clinical Research</a>
+        <button onclick="toggleAdminModal()" class="hover:text-bone underline transition-colors">Internal Dashboard</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Internal Submissions Dashboard Modal (Password-Protected) -->
+  <div id="admin-modal" class="fixed inset-0 z-50 bg-forest/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-float border border-eucalyptus overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="p-6 bg-bone border-b border-eucalyptus flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-forest text-bone flex items-center justify-center text-sm font-bold">
+            ⚡
+          </div>
+          <div>
+            <h3 class="font-editorial text-xl font-bold text-forest">Internal Submissions Dashboard</h3>
+            <p class="text-xs text-forest-muted">Review pre-launch lead captures, pricing choices & trigger trends.</p>
+          </div>
+        </div>
+        <button onclick="toggleAdminModal()" class="p-2 rounded-xl text-forest-muted hover:text-forest hover:bg-white text-lg">
+          ✕
+        </button>
+      </div>
+
+      <!-- Password Lock Screen (If not authenticated) -->
+      <div id="admin-auth-screen" class="p-10 text-center space-y-4 my-auto">
+        <div class="w-12 h-12 mx-auto rounded-full bg-matcha-light text-matcha flex items-center justify-center text-xl">
+          🔒
+        </div>
+        <h4 class="font-editorial text-xl font-bold text-forest">Enter Admin Passcode</h4>
+        <p class="text-xs text-forest-muted max-w-sm mx-auto">
+          Access the internal responses dashboard. (Default demo passcode: <code class="font-mono bg-bone px-2 py-0.5 rounded font-bold text-forest">debloat2026</code>)
+        </p>
+        <div class="max-w-xs mx-auto flex items-center gap-2">
+          <input type="password" id="admin-passcode" placeholder="Enter password" class="px-4 py-2.5 rounded-xl border border-eucalyptus text-sm w-full outline-none focus:border-matcha">
+          <button onclick="authenticateAdmin()" class="px-5 py-2.5 rounded-xl bg-forest text-bone text-xs font-semibold hover:bg-matcha transition-colors">
+            Unlock
+          </button>
+        </div>
+        <p id="admin-auth-error" class="text-xs text-terracotta font-semibold hidden">Incorrect passcode. Try again.</p>
+      </div>
+
+      <!-- Authenticated Dashboard View -->
+      <div id="admin-content-screen" class="hidden flex flex-col overflow-hidden">
+        
+        <!-- Metric Cards -->
+        <div class="p-6 bg-white border-b border-eucalyptus grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="p-3.5 rounded-2xl bg-bone border border-eucalyptus">
+            <span class="text-[10px] font-bold text-forest-muted uppercase tracking-wider">Total Leads</span>
+            <div class="text-2xl font-bold text-forest font-editorial mt-0.5" id="metric-total-leads">4</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-bone border border-eucalyptus">
+            <span class="text-[10px] font-bold text-forest-muted uppercase tracking-wider">Top Pricing Tier</span>
+            <div class="text-2xl font-bold text-matcha font-editorial mt-0.5" id="metric-top-price">£10/mo</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-bone border border-eucalyptus">
+            <span class="text-[10px] font-bold text-forest-muted uppercase tracking-wider">Primary Culprit</span>
+            <div class="text-2xl font-bold text-forest font-editorial mt-0.5">Garlic/Onion</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-bone border border-eucalyptus">
+            <span class="text-[10px] font-bold text-forest-muted uppercase tracking-wider">Avg Distension</span>
+            <div class="text-2xl font-bold text-terracotta font-editorial mt-0.5">+2.4"</div>
+          </div>
+        </div>
+
+        <!-- Controls & CSV Export Bar -->
+        <div class="px-6 py-3 bg-bone border-b border-eucalyptus flex items-center justify-between">
+          <span class="text-xs font-semibold text-forest">Captured Waitlist Submissions</span>
+          <button onclick="exportSubmissionsCSV()" class="px-3.5 py-1.5 rounded-lg bg-matcha text-white text-xs font-semibold hover:bg-matcha-hover flex items-center gap-1.5 transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Export to CSV</span>
+          </button>
+        </div>
+
+        <!-- Scrollable Table -->
+        <div class="overflow-y-auto custom-scrollbar p-6 max-h-[380px]">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-eucalyptus text-forest-muted font-bold uppercase tracking-wider">
+                <th class="pb-3">Name</th>
+                <th class="pb-3">Email</th>
+                <th class="pb-3">Pricing Tier</th>
+                <th class="pb-3">Timing</th>
+                <th class="pb-3">Suspected Triggers</th>
+                <th class="pb-3">Submitted</th>
+              </tr>
+            </thead>
+            <tbody id="admin-table-body" class="divide-y divide-eucalyptus/60 text-forest">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Element -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-forest text-bone px-5 py-3 rounded-2xl text-xs font-medium shadow-float border border-forest-muted transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">Notification message</span>
+  </div>
+
+  <script>
+    // State storage for submissions pre-seeded with realistic beta records
+    let submissions = [
+      {
+        name: "Chloe M.",
+        email: "chloe.wellness@gmail.com",
+        pricing: "$10/mo",
+        timing: "30-60m after lunch",
+        culprits: "Garlic & Onions, Dairy",
+        date: "2026-10-10 14:22"
+      },
+      {
+        name: "Jessica P.",
+        email: "jess.pilates@outlook.com",
+        pricing: "$15/mo",
+        timing: "Evening food baby",
+        culprits: "Zero-Sugar Polyols",
+        date: "2026-10-10 18:45"
+      },
+      {
+        name: "Lauren B.",
+        email: "lauren.bristol@gmail.com",
+        pricing: "$10/mo",
+        timing: "30-60m after lunch",
+        culprits: "Raw salads, Garlic & Onions",
+        date: "2026-10-11 09:12"
+      }
+    ];
+
+    let currentStep = 1;
+    let isAdminUnlocked = false;
+
+    // Currency Configuration State
+    let activeCurrency = {
+      code: 'USD',
+      symbol: '$'
+    };
+
+    // Automatic Currency Detection on Page Load
+    function detectUserCurrency() {
+      try {
+        const userLocale = navigator.language || navigator.userLanguage || 'en-US';
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        
+        if (userLocale.includes('GB') || timeZone.includes('London')) {
+          setCurrency('GBP', '£');
+        } else if (userLocale.includes('CA') || timeZone.includes('Toronto') || timeZone.includes('Vancouver')) {
+          setCurrency('CAD', '$');
+        } else if (
+          userLocale.includes('DE') || userLocale.includes('FR') || userLocale.includes('ES') || 
+          userLocale.includes('IT') || userLocale.includes('NL') || timeZone.includes('Europe')
+        ) {
+          setCurrency('EUR', '€');
+        } else {
+          // Default to US Dollar ($5, $10, $15)
+          setCurrency('USD', '$');
+        }
+      } catch (err) {
+        setCurrency('USD', '$');
+      }
+    }
+
+    // Interactive Currency Switcher
+    function setCurrency(code, symbol) {
+      activeCurrency.code = code;
+      activeCurrency.symbol = symbol;
+
+      // Update switcher buttons UI
+      ['USD', 'GBP', 'EUR', 'CAD'].forEach(curr => {
+        const btn = document.getElementById(`curr-btn-${curr}`);
+        if (!btn) return;
+        if (curr === code) {
+          btn.className = 'px-2 py-0.5 rounded-lg bg-forest text-bone transition-all';
+        } else {
+          btn.className = 'px-2 py-0.5 rounded-lg text-forest-muted hover:text-forest transition-all';
+        }
+      });
+
+      // Update pricing label displays
+      const val1 = document.querySelector('.price-val-1');
+      const val2 = document.querySelector('.price-val-2');
+      const val3 = document.querySelector('.price-val-3');
+
+      if (val1) val1.innerText = `${symbol}5`;
+      if (val2) val2.innerText = `${symbol}10`;
+      if (val3) val3.innerText = `${symbol}15`;
+
+      // Update input values
+      const p1 = document.getElementById('p1');
+      const p2 = document.getElementById('p2');
+      const p3 = document.getElementById('p3');
+      if (p1) p1.value = `${symbol}5/mo (${code})`;
+      if (p2) p2.value = `${symbol}10/mo (${code})`;
+      if (p3) p3.value = `${symbol}15/mo (${code})`;
+    }
+
+    // Initialize currency detection on load
+    window.addEventListener('DOMContentLoaded', () => {
+      detectUserCurrency();
+    });
+
+    // Toast Notification helper (Never use alert())
+    function showToast(msg, icon = '✓') {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      const toastIcon = document.getElementById('toast-icon');
+      
+      toastMsg.innerText = msg;
+      toastIcon.innerText = icon;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    // Copy Referral Link helper
+    function copyReferralLink() {
+      const urlInput = document.getElementById('referral-url');
+      urlInput.select();
+      document.execCommand('copy');
+      showToast('Referral link copied to clipboard!');
+    }
+
+    // Interactive Phone Scanner Demo Switcher
+    function setDemoState(state) {
+      const btnOrig = document.getElementById('btn-demo-original');
+      const btnSwap = document.getElementById('btn-demo-swapped');
+      const indicator = document.getElementById('demo-indicator');
+      const scoreBadge = document.getElementById('demo-score-badge');
+      const mealDesc = document.getElementById('demo-meal-desc');
+      const swapBox = document.getElementById('demo-swap-box');
+      const forecastLabel = document.getElementById('demo-forecast-label');
+      const forecastBar = document.getElementById('demo-forecast-bar');
+
+      if (state === 'original') {
+        btnOrig.className = 'py-1.5 px-2 rounded-lg font-semibold bg-white text-forest shadow-sm transition-all text-center';
+        btnSwap.className = 'py-1.5 px-2 rounded-lg font-medium text-forest-muted hover:text-forest transition-all text-center';
+        indicator.innerText = 'Unswapped Plate';
+        indicator.className = 'text-terracotta text-[10px] uppercase tracking-wider font-bold';
+        
+        scoreBadge.innerText = 'BRI 78/100';
+        scoreBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-terracotta-light text-terracotta border border-terracotta/20';
+        mealDesc.innerText = 'Roasted chicken, quinoa, raw red onion, kale & raw garlic tahini dressing.';
+        
+        swapBox.className = 'p-3 rounded-2xl bg-terracotta-light border border-terracotta/30 transition-all';
+        swapBox.innerHTML = `
+          <div class="flex items-center justify-between text-xs font-bold text-terracotta mb-1">
+            <span class="flex items-center gap-1">⚠️ High Fermentation Culprit</span>
+            <span>98% Distension</span>
+          </div>
+          <p class="text-xs text-forest leading-snug">
+            <strong class="text-terracotta">Raw Garlic & Onion:</strong> High-osmotic fructans trigger intestinal fermentation within 90 minutes.
+          </p>
+          <div class="mt-2 pt-2 border-t border-terracotta/20 flex items-center justify-between text-xs">
+            <span class="font-semibold text-forest">Recommended 1-Swap:</span>
+            <span class="text-matcha font-bold">Lemon + Extra Virgin Olive Oil &rarr;</span>
+          </div>
+        `;
+
+        forecastLabel.innerText = '+2.8 inches distension';
+        forecastLabel.className = 'text-terracotta font-bold';
+        forecastBar.className = 'h-full bg-terracotta transition-all duration-500 rounded-full';
+        forecastBar.style.width = '82%';
+      } else {
+        btnSwap.className = 'py-1.5 px-2 rounded-lg font-semibold bg-white text-forest shadow-sm transition-all text-center';
+        btnOrig.className = 'py-1.5 px-2 rounded-lg font-medium text-forest-muted hover:text-forest transition-all text-center';
+        indicator.innerText = '1-Ingredient Swapped ✨';
+        indicator.className = 'text-matcha text-[10px] uppercase tracking-wider font-bold';
+        
+        scoreBadge.innerText = 'BRI 14/100';
+        scoreBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-matcha-light text-matcha border border-matcha/20';
+        mealDesc.innerText = 'Roasted chicken, quinoa, pickled onions, kale & EVOO + squeezed lemon.';
+        
+        swapBox.className = 'p-3 rounded-2xl bg-matcha-light border border-matcha/30 transition-all';
+        swapBox.innerHTML = `
+          <div class="flex items-center justify-between text-xs font-bold text-matcha mb-1">
+            <span class="flex items-center gap-1">✓ Neutralized Trigger</span>
+            <span>Low Fermentation</span>
+          </div>
+          <p class="text-xs text-forest leading-snug">
+            <strong class="text-matcha">Swapped dressing & pickled alliums:</strong> Fructan content drops by 94%. Zero fluid pooling expected.
+          </p>
+          <div class="mt-2 pt-2 border-t border-matcha/20 flex items-center justify-between text-xs">
+            <span class="font-semibold text-forest">Status:</span>
+            <span class="text-matcha font-bold">Flat Stomach Approved 🌿</span>
+          </div>
+        `;
+
+        forecastLabel.innerText = '0.0 inches (Flat all day)';
+        forecastLabel.className = 'text-matcha font-bold';
+        forecastBar.className = 'h-full bg-matcha transition-all duration-500 rounded-full';
+        forecastBar.style.width = '14%';
+      }
+    }
+
+    // Quiz Step Controller
+    function updateQuizProgress(step) {
+      currentStep = step;
+      const progressPercent = Math.min(100, Math.round((step / 10) * 100));
+      document.getElementById('quiz-step-indicator').innerText = `Step ${Math.min(10, step)} of 10`;
+      document.getElementById('quiz-progress-percent').innerText = `${progressPercent}%`;
+      document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
+
+      // Hide all steps
+      for (let i = 1; i <= 10; i++) {
+        const el = document.getElementById(`step-${i}`);
+        if (el) el.classList.add('hidden');
+      }
+
+      // Show current step
+      const activeEl = document.getElementById(`step-${step}`);
+      if (activeEl) activeEl.classList.remove('hidden');
+    }
+
+    function nextQuizStep(step) {
+      updateQuizProgress(step);
+    }
+
+    function prevQuizStep(step) {
+      updateQuizProgress(step);
+    }
+
+    // Step 5 -> Step 6: Dynamic Simulated AI Calculation
+    function triggerAiAnalysis() {
+      updateQuizProgress(6);
+      
+      const calcProgress = document.getElementById('ai-calc-progress');
+      const calcStatus = document.getElementById('ai-calc-status');
+      
+      setTimeout(() => {
+        calcProgress.style.width = '45%';
+        calcStatus.innerText = 'Cross-referencing high-osmotic fructan clusters...';
+      }, 700);
+
+      setTimeout(() => {
+        calcProgress.style.width = '85%';
+        calcStatus.innerText = 'Synthesizing 6-hour mechanical gas distension forecast...';
+      }, 1500);
+
+      setTimeout(() => {
+        calcProgress.style.width = '100%';
+        calcStatus.innerText = 'Archetype calculated: Rapid Fermenter!';
+      }, 2300);
+
+      setTimeout(() => {
+        updateQuizProgress(7);
+      }, 2900);
+    }
+
+    // Form Submission & Meta Pixel Lead Simulation
+    function handleFormSubmission(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('lead-name').value;
+      const email = document.getElementById('lead-email').value;
+      const selectedRadio = document.querySelector('input[name="pricing"]:checked');
+      const pricing = selectedRadio ? selectedRadio.value : `${activeCurrency.symbol}10/mo (${activeCurrency.code})`;
+      const timing = document.querySelector('input[name="timing"]:checked')?.value || 'Mid-day';
+      
+      // Collect culprits
+      const culpritCheckboxes = document.querySelectorAll('#step-5 input[type="checkbox"]:checked');
+      const culprits = Array.from(culpritCheckboxes).map(cb => cb.value).join(', ') || 'General Fermenters';
+
+      // Save submission
+      const now = new Date();
+      const dateStr = now.toISOString().replace('T', ' ').substring(0, 16);
+      
+      submissions.unshift({
+        name,
+        email,
+        pricing,
+        timing,
+        culprits,
+        date: dateStr
+      });
+
+      // Update success queue
+      const queueNumber = 400 + submissions.length;
+      document.getElementById('success-queue-pos').innerText = `#${queueNumber}`;
+      document.getElementById('referral-url').value = `https://debloat.app/?ref=beta${queueNumber}`;
+
+      // Show Step 10 (Success)
+      updateQuizProgress(10);
+      showToast('Spot reserved! Lead conversion event dispatched.');
+
+      // Refresh Admin Table in memory
+      renderAdminTable();
+    }
+
+    // Admin Modal Logic
+    function toggleAdminModal() {
+      const modal = document.getElementById('admin-modal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden') && isAdminUnlocked) {
+        renderAdminTable();
+      }
+    }
+
+    function authenticateAdmin() {
+      const passcode = document.getElementById('admin-passcode').value;
+      const err = document.getElementById('admin-auth-error');
+      
+      if (passcode === 'debloat2026' || passcode === 'admin') {
+        isAdminUnlocked = true;
+        err.classList.add('hidden');
+        document.getElementById('admin-auth-screen').classList.add('hidden');
+        document.getElementById('admin-content-screen').classList.remove('hidden');
+        renderAdminTable();
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    function renderAdminTable() {
+      const tbody = document.getElementById('admin-table-body');
+      tbody.innerHTML = '';
+
+      submissions.forEach(sub => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-bone transition-colors';
+        tr.innerHTML = `
+          <td class="py-3 font-semibold text-forest">${sub.name}</td>
+          <td class="py-3 text-forest-muted">${sub.email}</td>
+          <td class="py-3 font-bold text-matcha">${sub.pricing}</td>
+          <td class="py-3 text-forest-muted">${sub.timing}</td>
+          <td class="py-3 text-forest-muted">${sub.culprits}</td>
+          <td class="py-3 text-[10px] text-forest-muted font-mono">${sub.date}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update KPI metrics
+      document.getElementById('metric-total-leads').innerText = submissions.length;
+      
+      // Calculate top price point
+      const priceCounts = {};
+      submissions.forEach(s => priceCounts[s.pricing] = (priceCounts[s.pricing] || 0) + 1);
+      let topTier = '£10/mo';
+      let maxCount = 0;
+      for (const [tier, count] of Object.entries(priceCounts)) {
+        if (count > maxCount) {
+          maxCount = count;
+          topTier = tier;
+        }
+      }
+      document.getElementById('metric-top-price').innerText = topTier;
+    }
+
+    // Export Submissions to CSV
+    function exportSubmissionsCSV() {
+      let csvContent = "data:text/csv;charset=utf-8,Name,Email,PricingTier,Timing,Culprits,Date\n";
+      
+      submissions.forEach(sub => {
+        const row = `"${sub.name}","${sub.email}","${sub.pricing}","${sub.timing}","${sub.culprits}","${sub.date}"`;
+        csvContent += row + "\n";
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `debloat_leads_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      showToast('CSV export downloaded successfully!');
+    }
+  </script>
+</body>
+</html>
+```
